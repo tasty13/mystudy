@@ -10,7 +10,11 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     // 자바 어플리케이션을 생성하는 플러그인.
     // 이 플러그인을 추가하면 'java'플러그인이 자동으로 추가된다. (-> 따로 추가할 필요 X)
-    id 'application'    
+    // id 'application'    
+
+    // Eclipse IDE 관련 작업을 수행할 수 있는 플러그인
+    id 'eclipse'
+    id 'java'
 }
 
 // 이 프로젝트에서 사용할 외부 라이브러리를 제공하는 서버를 설정한다.
@@ -48,11 +52,13 @@ java {
     }
 }
 
+/*
 // application 플러그인과 관련된 설정
 application {
     // Define the main class for the application.
     mainClass = 'Hello' // run 명령 수행할 때 실행시킬 자바 클래스 이름 지정
 }
+*/
 
 // 단위 테스트를 실행할 때 사용할 설정
 tasks.named('test') {
@@ -63,4 +69,16 @@ tasks.named('test') {
 // 자바 소스를 컴파일 할 때 적용할 옵션
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+// eclipse 프로젝트 이름을 설정하기
+eclipse {
+    project {
+        name = "java-basic"
+    }
+    jdt {
+      sourceCompatibility = 21
+      targetCompatibility = 21
+      javaRuntimeName = "JavaSE-21"
+    }
 }
