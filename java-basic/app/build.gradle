@@ -48,7 +48,7 @@ dependencies {
 // 소스파일이 어떤 자바 버전으로 되어 있는지 Gradle에게 알려줌
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -63,7 +63,7 @@ application {
 // 단위 테스트를 실행할 때 사용할 설정
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
-    useJUnitPlatform()  // 단위 테스트를 수행할 떄 JUnit 도구를 사용하도록 지정한다.
+    useJUnitPlatform()  // 단위 테스트를 수행할 때 JUnit 도구를 사용하도록 지정한다.
 }
 
 // 자바 소스를 컴파일 할 때 적용할 옵션
@@ -77,8 +77,8 @@ eclipse {
         name = "java-basic"
     }
     jdt {
-      sourceCompatibility = 21
-      targetCompatibility = 21
-      javaRuntimeName = "JavaSE-21"
+        sourceCompatibility = 17  // 21버전꺼까지사용
+        targetCompatibility = 17  // jvm 21버전이상사용
+        javaRuntimeName = "JavaSE-17"
     }
 }
