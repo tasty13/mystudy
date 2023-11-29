@@ -63,3 +63,9 @@ eclipse {
         javaRuntimeName = "JavaSE-21"
     }
 }
+
+// Gradle로 애플리케이션을 실행했을 때 키보드 입력을 표준 입력 스트림으로 연결
+// 기본은 empty stdin 사용
+run {
+    standardInput = System.in
+}
