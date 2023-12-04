@@ -30,7 +30,7 @@ public class Exam0630 {
 
     // 위 문장을 다음과 같이 바꿔도 된다.
     //    for (Object key : keySet) {
-    //      String value = System.getProperty((String) key);
+    //      String value = System.getProperty((String) key);    -> 시스템에서바로꺼냄
     //      System.out.printf("%s = %s\n", key, value);
     //    }
   }

@@ -15,7 +15,7 @@ public class Exam0650 {
     System.out.println(i); // 4
 
     System.out.println(++i); 
-    // i = i + 1
+    // i = i + 1 <- 실행할 떄 내부적으로 이런 구조로 바꿈  
     // System.out.println(5)
 
     System.out.println(i); // 5

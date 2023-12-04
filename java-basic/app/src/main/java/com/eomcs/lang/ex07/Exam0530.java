@@ -8,7 +8,7 @@ public class Exam0530 {
     // 합계를 출력하는 프로그램을 작성하라.
     // $ java -cp ./bin/main com.eomcs.lang.ex07.Exam0530 200 43 56
     //
-    int sum = 0;
+    int sum = 0; // = 0 붙이지 않으면 컴파일 오류 (초기화해줘야됨)
     for (String arg : args)
       sum += Integer.parseInt(arg);
     System.out.printf("합계: %d\n", sum);
