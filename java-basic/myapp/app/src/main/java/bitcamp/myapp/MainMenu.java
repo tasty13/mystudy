@@ -30,7 +30,7 @@ public class MainMenu {
     printMenu();
 
     while (true) {
-      String input = Prompt.input("메인");
+      String input = Prompt.input("메인> ");
 
       switch (input) {
         case "1":
