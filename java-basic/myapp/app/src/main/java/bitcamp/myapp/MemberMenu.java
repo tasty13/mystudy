@@ -118,7 +118,7 @@ public class MemberMenu {
     }
 
     // 1. 삭제할 데이터 기준으로 배열 값들을 앞으로 한칸씩 땡김
-    for (int i = index; i < length; i++) {
+    for (int i = index; i < length - 1; i++) {
       members[i] = members[i + 1];
     }
 
