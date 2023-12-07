@@ -5,17 +5,12 @@ import bitcamp.util.Prompt;
 
 public class BoardMenu {
 
-  // 의존 객체(Dependency Object ==> dependency);
-  // - 클래스가 작업을 수행할 때 사용하는 객체
   Prompt prompt;
-
   String title;
+
   Board[] boards = new Board[3];
   int length = 0;
 
-  // BoardMenu 인스턴스 생성 시 반드시 게시판 제목을 설정하도록 강요
-  // 생성자Constructor란?
-  // -> 인스턴스를 사용하기 전에 유효한 상태로 설정하는 작업 수행하는 메서드
   public BoardMenu(String title, Prompt prompt) {
     this.title = title;
     this.prompt = prompt;
@@ -58,8 +53,7 @@ public class BoardMenu {
           this.printMenu();
           break;
         default:
-          System.out.println("메뉴 번호가 옳지 않습니다.");
-          break;
+          System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
@@ -71,12 +65,15 @@ public class BoardMenu {
     if (this.length == this.boards.length) {
       int oldSize = this.boards.length;
       int newSize = oldSize + (oldSize >> 1);
+
       Board[] arr = new Board[newSize];
       for (int i = 0; i < oldSize; i++) {
         arr[i] = this.boards[i];
       }
+
       this.boards = arr;
     }
+
     Board board = new Board();
     board.title = this.prompt.input("제목? ");
     board.content = this.prompt.input("내용? ");
@@ -98,11 +95,13 @@ public class BoardMenu {
 
   void view() {
     System.out.println("게시글 조회:");
+
     int index = this.prompt.inputInt("번호? ");
     if (index < 0 || index >= this.length) {
       System.out.println("게시글 번호가 유효하지 않습니다.");
       return;
     }
+
     Board board = this.boards[index];
     System.out.printf("제목: %s\n", board.title);
     System.out.printf("내용: %s\n", board.content);
@@ -112,12 +111,13 @@ public class BoardMenu {
 
   void modify() {
     System.out.println("게시글 변경:");
+
     int index = this.prompt.inputInt("번호? ");
     if (index < 0 || index >= this.length) {
       System.out.println("게시글 번호가 유효하지 않습니다.");
       return;
-
     }
+
     Board board = this.boards[index];
     board.title = this.prompt.input("제목(%s)? ", board.title);
     board.content = this.prompt.input("내용(%s)? ", board.content);
