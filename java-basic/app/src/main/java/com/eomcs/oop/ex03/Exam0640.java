@@ -34,7 +34,7 @@ public class Exam0640 {
     new A();
     System.out.println("-------------------------------");
 
-    new A();
+    new A();    // 클래스가 이미 로딩된 상태이므로 스태틱 어쩌구 프린트안됨
     System.out.println("-------------------------------");
 
     new A();

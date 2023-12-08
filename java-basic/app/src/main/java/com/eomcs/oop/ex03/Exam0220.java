@@ -16,7 +16,7 @@ public class Exam0220 {
     void m2() {
       // 인스턴스 메서드는 인스턴스 주소가 있어야만 호출되기 때문에
       // 인스턴스 주소를 받을 변수가 내장되어 있다.
-      this.value = 100;
+      this.value = 100; // ByteCode로 보면 LOCALVARIABLE this (내장 변수)
     }
 
     void m3() {
