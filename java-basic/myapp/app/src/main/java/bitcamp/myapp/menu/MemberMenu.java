@@ -1,15 +1,16 @@
 package bitcamp.myapp.menu;
 
+import bitcamp.menu.Menu;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
 
-public class MemberMenu {
+public class MemberMenu implements Menu {
 
   // 의존 객체(Dependency Object ==> dependency);
   // - 클래스가 작업을 수행할 때 사용하는 객체
   Prompt prompt;
-  String title;
 
+  String title;
   Member[] members = new Member[3];
   int length = 0;
 
@@ -28,7 +29,12 @@ public class MemberMenu {
     System.out.println("0. 이전");
   }
 
-  void execute() {
+  @Override
+  public String getTitle() {
+    return null;
+  }
+
+  public void execute(Prompt prompt) {
     this.printMenu();
     while (true) {
       String input = this.prompt.input("메인/%s> ", this.title);
@@ -139,5 +145,4 @@ public class MemberMenu {
     }
     this.members[--this.length] = null;
   }
-
 }

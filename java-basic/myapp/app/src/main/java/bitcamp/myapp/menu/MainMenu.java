@@ -1,12 +1,15 @@
 package bitcamp.myapp.menu;
 
+import bitcamp.menu.Menu;
 import bitcamp.util.AnsiEscape;
 import bitcamp.util.Prompt;
 
-public class MainMenu {
+public class MainMenu implements Menu {
 
   static final String APP_TITLE =
-      AnsiEscape.ANSI_BOLD_RED + "[과제관리 시스템]" + AnsiEscape.ANSI_CLEAR;
+      AnsiEscape.ANSI_BOLD_RED
+          + "[과제관리 시스템]"
+          + AnsiEscape.ANSI_CLEAR;
   static final String[] MENUS = {
       "1. 과제",
       "2. 게시글",
@@ -15,6 +18,9 @@ public class MainMenu {
       "5. 도움말",
       AnsiEscape.ANSI_RED + "0. 종료" + AnsiEscape.ANSI_CLEAR
   };
+
+  // 의존 객체(Dependency Object ==> dependency);
+  // - 클래스가 작업을 수행할 때 사용하는 객체
   Prompt prompt;
 
   public MainMenu(Prompt prompt) {
@@ -34,17 +40,18 @@ public class MainMenu {
     }
   }
 
-  public void execute() {
-    BoardMenu boardMenu = new BoardMenu("게시판", this.prompt);
-    // 이러면 Heap에 boards/length변수, Board[3] 만들어지고 boardMenu에 boards/length변수 주소 들어감
-    // Board 객체 주소를 담을 수 있는 레퍼런스의 배열
-    // Boards[3]의 주소는 boards에 들어간다.
+  @Override
+  public String getTitle() {
+    return null;
+  }
 
-    BoardMenu greetingMenu = new BoardMenu("가입인사", this.prompt);
-    // 따로따로 만들었기 때문에 boardMenu와 greetingMenu는 다름(넘겨주는 주소가 다르다)
+  public void execute(Prompt prompt) {
 
-    AssignmentMenu assignmentMenu = new AssignmentMenu("과제", this.prompt);
-    MemberMenu memberMenu = new MemberMenu("회원", this.prompt);
+    Menu boardMenu = new BoardMenu("게시판", this.prompt);
+    Menu greetingMenu = new BoardMenu("가입인사", this.prompt);
+    Menu assignmentMenu = new AssignmentMenu("과제", this.prompt);
+    Menu memberMenu = new MemberMenu("회원", this.prompt);
+    Menu helpMenu = new HelpMenu("도움말", this.prompt);
 
     printMenu();
 
@@ -53,19 +60,19 @@ public class MainMenu {
 
       switch (input) {
         case "1":
-          assignmentMenu.execute();
+          assignmentMenu.execute(prompt);
           break;
         case "2":
-          boardMenu.execute();  // 배열 주소와 갯수 저장하고 있는 인스턴스 주소 넘김
+          boardMenu.execute(prompt);
           break;
         case "3":
-          memberMenu.execute();
+          memberMenu.execute(prompt);
           break;
         case "4":
-          greetingMenu.execute();
+          greetingMenu.execute(prompt);
           break;
         case "5":
-          System.out.println("도움말입니다.");
+          helpMenu.execute(prompt);
           break;
         case "0":
           System.out.println("종료합니다.");

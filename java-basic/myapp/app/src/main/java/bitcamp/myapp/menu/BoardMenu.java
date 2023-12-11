@@ -1,16 +1,22 @@
 package bitcamp.myapp.menu;
 
+import bitcamp.menu.Menu;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 
-public class BoardMenu {
+public class BoardMenu implements Menu {
 
+  // 의존 객체(Dependency Object ==> dependency);
+  // - 클래스가 작업을 수행할 때 사용하는 객체
   Prompt prompt;
-  String title;
 
+  String title;
   Board[] boards = new Board[3];
   int length = 0;
 
+  // BoardMenu 인스턴스를 생성할 때 반드시 게시판 제목을 설정하도록 강요한다.
+  // 생성자란(constructor)?
+  // => 인스턴스를 사용하기 전에 유효한 상태로 설정하는 작업을 수행하는 메서드
   public BoardMenu(String title, Prompt prompt) {
     this.title = title;
     this.prompt = prompt;
@@ -26,11 +32,16 @@ public class BoardMenu {
     System.out.println("0. 이전");
   }
 
-  void execute() {
-    this.printMenu();
+  @Override
+  public String getTitle() {
+    return null;
+  }
 
+  public void execute(Prompt prompt) {
+    this.printMenu();
     while (true) {
       String input = this.prompt.input("메인/%s> ", this.title);
+
       switch (input) {
         case "1":
           this.add();
@@ -61,7 +72,6 @@ public class BoardMenu {
   void add() {
     System.out.println("게시글 등록:");
 
-    // 1. 더 큰 배열 새로 만듦 2. 새 배열에 원래 배열 넣어줌 3. boards에 새 배열 주소 넣어줌
     if (this.length == this.boards.length) {
       int oldSize = this.boards.length;
       int newSize = oldSize + (oldSize >> 1);
