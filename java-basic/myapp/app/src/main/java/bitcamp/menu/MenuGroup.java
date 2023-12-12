@@ -53,7 +53,7 @@ public class MenuGroup implements Menu {
     return this.title;
   }
 
-  public void add(Menu menu) {
+  public void add(Menu menu) {  // 인터페이스 규칙에 따라 만든 클래스의 주소 받음
     if (this.menuSize == this.menus.length) {
       int oldSize = this.menus.length;
       int newSize = oldSize + (oldSize >> 1);

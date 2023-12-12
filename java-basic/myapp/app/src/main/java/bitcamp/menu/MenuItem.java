@@ -17,6 +17,7 @@ public class MenuItem implements Menu {
   }
 
   public MenuItem(String title, MenuHandler menuHandler) {
+    // 약연결-> 구체적으로 Handler 지정 X, 핸들러 규칙 따랐으면 뭐든ㄱㄴ
     this(title);
     this.menuHandler = menuHandler;
   }
