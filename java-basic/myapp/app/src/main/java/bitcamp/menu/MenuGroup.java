@@ -2,8 +2,8 @@ package bitcamp.menu;
 
 import bitcamp.util.Prompt;
 
-// Composite 패턴에서 '복합 객체Composite Object' 역할을 하는 클래스
-// 다른 Menu 객체를 포함한다.
+// Composite 패턴에서 '복합 객체(composite object)' 역할을 하는 클래스
+// - 다른 Menu 객체를 포함한다.
 public class MenuGroup implements Menu {
 
   String title;
@@ -53,7 +53,7 @@ public class MenuGroup implements Menu {
     return this.title;
   }
 
-  public void add(Menu menu) {  // 인터페이스 규칙에 따라 만든 클래스의 주소 받음
+  public void add(Menu menu) {
     if (this.menuSize == this.menus.length) {
       int oldSize = this.menus.length;
       int newSize = oldSize + (oldSize >> 1);

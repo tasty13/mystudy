@@ -17,15 +17,13 @@ public class MenuItem implements Menu {
   }
 
   public MenuItem(String title, MenuHandler menuHandler) {
-    // 약연결-> 구체적으로 Handler 지정 X, 핸들러 규칙 따랐으면 뭐든ㄱㄴ
     this(title);
     this.menuHandler = menuHandler;
   }
 
   public void execute(Prompt prompt) {
-    // menuHandler 등록돼있으면 실행
     if (this.menuHandler != null) {
-      this.menuHandler.action();
+      this.menuHandler.action(this);
     }
   }
 
