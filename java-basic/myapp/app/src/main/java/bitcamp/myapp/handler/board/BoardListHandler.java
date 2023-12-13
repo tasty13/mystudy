@@ -4,16 +4,17 @@ import bitcamp.menu.Menu;
 import bitcamp.menu.MenuHandler;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.AnsiEscape;
+import java.util.ArrayList;
 
 // 게시글의 '목록' 메뉴를 선택했을 때 작업을 수행하는 클래스
 // - 반드시 MenuHandler 규칙에 따라 클래스를 작성해야 한다.
 //
 public class BoardListHandler implements MenuHandler {
 
-  BoardRepository boardRepository;
+  ArrayList<Board> objectRepository;
 
-  public BoardListHandler(BoardRepository boardRepository) {
-    this.boardRepository = boardRepository;
+  public BoardListHandler(ArrayList<Board> objectRepository) {
+    this.objectRepository = objectRepository;
   }
 
   @Override
@@ -22,7 +23,12 @@ public class BoardListHandler implements MenuHandler {
 
     System.out.printf("%-20s\t%10s\t%s\n", "Title", "Writer", "Date");
 
-    for (Board board : boardRepository.toArray()) {
+//    Board[] boards = new Board[this.objectRepository.size()];
+//    this.objectRepository.toArray(boards);
+
+    Board[] boards = this.objectRepository.toArray(new Board[0]); // 일부러 작은 배열 넘겨주고 복사된 새 배열 받음
+
+    for (Board board : boards) {
       System.out.printf("%-20s\t%10s\t%s\n", board.title, board.writer, board.createdDate);
     }
   }

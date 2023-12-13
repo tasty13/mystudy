@@ -5,14 +5,15 @@ import bitcamp.menu.MenuHandler;
 import bitcamp.myapp.vo.Assignment;
 import bitcamp.util.AnsiEscape;
 import bitcamp.util.Prompt;
+import java.util.ArrayList;
 
 public class AssignmentModifyHandler implements MenuHandler {
 
   Prompt prompt;
-  AssignmentRepository assignmentRepository;
+  ArrayList<Assignment> objectRepository;
 
-  public AssignmentModifyHandler(AssignmentRepository assignmentRepository, Prompt prompt) {
-    this.assignmentRepository = assignmentRepository;
+  public AssignmentModifyHandler(ArrayList<Assignment> objectRepository, Prompt prompt) {
+    this.objectRepository = objectRepository;
     this.prompt = prompt;
   }
 
@@ -21,7 +22,7 @@ public class AssignmentModifyHandler implements MenuHandler {
     System.out.printf(AnsiEscape.ANSI_BOLD + "[%s]\n" + AnsiEscape.ANSI_CLEAR, menu.getTitle());
 
     int index = this.prompt.inputInt("번호? ");
-    Assignment oldAssignment = assignmentRepository.get(index);
+    Assignment oldAssignment = objectRepository.get(index);
 
     if (oldAssignment == null) {
       System.out.println("게시글 번호가 유효하지 않습니다.");
@@ -33,6 +34,6 @@ public class AssignmentModifyHandler implements MenuHandler {
     assignment.content = this.prompt.input("내용(%s)? ", oldAssignment.content);
     assignment.deadline = this.prompt.input("제출 마감일(%s)? ", oldAssignment.deadline);
 
-    this.assignmentRepository.set(index, assignment);
+    this.objectRepository.set(index, assignment);
   }
 }
