@@ -4,14 +4,14 @@ import bitcamp.menu.Menu;
 import bitcamp.menu.MenuHandler;
 import bitcamp.myapp.vo.Assignment;
 import bitcamp.util.AnsiEscape;
-import java.util.ArrayList;
+import bitcamp.util.ObjectRepository;
 
 public class AssignmentListHandler implements MenuHandler {
 
-  ArrayList<Assignment> objectRepository;
+  ObjectRepository<Assignment> objectRepository;
 
 
-  public AssignmentListHandler(ArrayList<Assignment> objectRepository) {
+  public AssignmentListHandler(ObjectRepository<Assignment> objectRepository) {
     this.objectRepository = objectRepository;
   }
 
@@ -22,6 +22,7 @@ public class AssignmentListHandler implements MenuHandler {
 
     Assignment[] assignments = new Assignment[this.objectRepository.size()];
     this.objectRepository.toArray(assignments);
+
     for (Assignment assignment : assignments) {
       System.out.printf("%-20s\t%s\n", assignment.title, assignment.deadline);
     }

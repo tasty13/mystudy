@@ -21,8 +21,8 @@ import bitcamp.myapp.handler.member.MemberViewHandler;
 import bitcamp.myapp.vo.Assignment;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
+import bitcamp.util.ObjectRepository;
 import bitcamp.util.Prompt;
-import java.util.ArrayList;
 
 public class App {
 
@@ -30,24 +30,21 @@ public class App {
     Prompt prompt = new Prompt(System.in);
     //new MainMenu(prompt).execute();
 
-    ArrayList<Board> boardRepository = new ArrayList<>();
-    ArrayList<Assignment> assignmentRepository = new ArrayList<>();
-    ArrayList<Member> memberRepository = new ArrayList<>();
-    ArrayList<Board> greetingRepository = new ArrayList<>();
+    ObjectRepository<Board> boardRepository = new ObjectRepository<>();
+    ObjectRepository<Assignment> assignmentRepository = new ObjectRepository<>();
+    ObjectRepository<Member> memberRepository = new ObjectRepository<>();
+    ObjectRepository<Board> greetingRepository = new ObjectRepository<>();
 
     MenuGroup mainMenu = new MenuGroup("메인");
 
     MenuGroup assignmentMenu = new MenuGroup("과제");
-    assignmentMenu.add(
-        new MenuItem("등록", new AssignmentAddHandler(assignmentRepository, prompt)));
-    assignmentMenu.add(
-        new MenuItem("조회", new AssignmentViewHandler(assignmentRepository, prompt)));
+    assignmentMenu.add(new MenuItem("등록", new AssignmentAddHandler(assignmentRepository, prompt)));
+    assignmentMenu.add(new MenuItem("조회", new AssignmentViewHandler(assignmentRepository, prompt)));
     assignmentMenu.add(
         new MenuItem("변경", new AssignmentModifyHandler(assignmentRepository, prompt)));
     assignmentMenu.add(
         new MenuItem("삭제", new AssignmentDeleteHandler(assignmentRepository, prompt)));
-    assignmentMenu.add(
-        new MenuItem("목록", new AssignmentListHandler(assignmentRepository)));
+    assignmentMenu.add(new MenuItem("목록", new AssignmentListHandler(assignmentRepository)));
     mainMenu.add(assignmentMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");

@@ -4,16 +4,16 @@ import bitcamp.menu.Menu;
 import bitcamp.menu.MenuHandler;
 import bitcamp.myapp.vo.Assignment;
 import bitcamp.util.AnsiEscape;
+import bitcamp.util.ObjectRepository;
 import bitcamp.util.Prompt;
-import java.util.ArrayList;
 
 public class AssignmentAddHandler implements MenuHandler {
 
   Prompt prompt;
-  ArrayList<Assignment> objectRepository;
+  ObjectRepository<Assignment> objectRepository;
 
 
-  public AssignmentAddHandler(ArrayList<Assignment> objectRepository, Prompt prompt) {
+  public AssignmentAddHandler(ObjectRepository<Assignment> objectRepository, Prompt prompt) {
     this.objectRepository = objectRepository;
     this.prompt = prompt;
   }
@@ -27,6 +27,6 @@ public class AssignmentAddHandler implements MenuHandler {
     assignment.content = this.prompt.input("내용? ");
     assignment.deadline = this.prompt.input("제출 마감일? ");
 
-    objectRepository.add(assignment);
+    this.objectRepository.add(assignment);
   }
 }
