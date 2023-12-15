@@ -1,11 +1,13 @@
 package com.eomcs.oop.ex02.step13;
 
-// 데이터 타입 정의
-// 0) 클래스 사용 전: 낱개 변수 사용
-// 1) 성적 데이터를 저장할 메모리를 새로 정의:
-// - '사용자 정의 데이터 타입(user-defined data type)'이라 부른다.
-// - 여러 개로 이루어진 데이터를 한 묶음으로 다루면 관리하기 쉽다.
-// 2) 리팩토링: 메서드 추출(extract method), static nested class
+// 데이터 타입 정의  
+// 1) 클래스 사용전: 
+//    - 낱개 변수 사용
+// 2) 성적 데이터를 저장할 메모리를 새로 정의: 
+//    - '사용자 정의 데이터 타입(user-defined data type)'이라 부른다.
+//    - 여러 개로 이루어진 데이터를 한 묶음으로 다루면 관리하기가 쉽다.
+// 3) 리팩토링: 
+//   - 메서드 추출(extract method): 중복되는 코드가 있으면 별도의 메서드로 분리한다.
 
 public class App {
   public static void main(String[] args) {
@@ -14,7 +16,6 @@ public class App {
     Score s2 = new Score();
     Score s3 = new Score();
 
-    // - Heap 영역에 생성된 인스턴스의 변수는 레퍼런스를 통해 접근한다.
     s1.name = "홍길동";
     s1.kor = 100;
     s1.eng = 90;
@@ -36,12 +37,15 @@ public class App {
 
   }
 
-  // 합계와 평균, 출력 코드를 분리해 별도의 메소드로 정의
-  // 즉 중복 코드를 제거해 메서드로 정의해 두면 재사용하기 쉽다.
+  // 합계와 평균, 출력 코드를 분리하여 별도의 메서드로 정의한다.
+  // 즉 중복 코드 제거하여 메서드로 정의해두면 재사용하기가 쉽다.
+  //
   static void printScore(Score s) {
     s.sum = s.kor + s.eng + s.math;
     s.aver = s.sum / 3f;
 
-    System.out.printf("%s: %d, %d, %d, %d, %.1f\n", s.name, s.kor, s.eng, s.math, s.sum, s.aver);
+    System.out.printf("%s: %d, %d, %d, %d, %.1f\n", 
+        s.name, s.kor, s.eng, s.math, s.sum, s.aver);
   }
 }
+

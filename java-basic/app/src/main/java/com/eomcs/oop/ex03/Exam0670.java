@@ -4,7 +4,7 @@ package com.eomcs.oop.ex03;
 public class Exam0670 {
 
   public static class A {
-    static int a = 100; //variable initializer
+    static int a = 100;
 
     // 위 문장 해석:
     // 1) "클래스가 로딩될 때" int 타입의 메모리를 만들고 그 메모리의 이름을 'a'라고 하라.
