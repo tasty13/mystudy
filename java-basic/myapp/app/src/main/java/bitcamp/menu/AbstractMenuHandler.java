@@ -2,7 +2,6 @@ package bitcamp.menu;
 
 import bitcamp.util.AnsiEscape;
 import bitcamp.util.Prompt;
-import java.util.stream.IntStream;
 
 public abstract class AbstractMenuHandler implements MenuHandler {
 
@@ -24,8 +23,6 @@ public abstract class AbstractMenuHandler implements MenuHandler {
 
   private void printMenuTitle(String title) {
     System.out.printf(AnsiEscape.ANSI_BOLD + "[%s]\n" + AnsiEscape.ANSI_CLEAR, title);
-
-    IntStream.range(1, 10).forEach(i -> System.out.printf("%d * %d = %d", x, i, x * i));
   }
 
   // 서브 클래스가 구현해야 할 메서드
