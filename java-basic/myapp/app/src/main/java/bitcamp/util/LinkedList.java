@@ -1,21 +1,18 @@
 package bitcamp.util;
 
-public class LinkedList<E> {
+import java.util.Arrays;
+
+public class LinkedList<E> extends AbstractList<E> {
 
   private Node<E> first;
   private Node<E> last;
-  private int size;
-
-  public int size() {
-    return size;
-  }
 
   public void add(E value) {
     Node<E> node = new Node<>();
     node.value = value;
 
     if (last == null) {
-      // 노드 객체가 없을 때
+      // 노드 객체가 없을 때,
       first = last = node;
     } else {
       // 기존에 노드 객체가 있을 때, 마지막 노드의 다음 노드로 새로 만든 노드를 가리키게 한다.
@@ -46,6 +43,7 @@ public class LinkedList<E> {
     while (++cursor <= index) {
       node = node.next;
     }
+
     return node.value;
   }
 
@@ -75,18 +73,16 @@ public class LinkedList<E> {
 
     if (first == null) {
       first = last = node;
+
     } else if (index == 0) {
-      // index가 0일 때 -> 원래 first였던 값이랑 새 노드 연결, 새 노드를 first로
       node.next = first;
       first = node;
 
     } else if (index == size) {
-      // index가 size일 때-> 원래 마지막 노드가 새 노드 가리키게, 새 노드를 last로
       last.next = node;
       last = node;
+
     } else {
-      // 리스트에서 삽입할 인덱스의 바로 전 노드에 해당하는 값을 찾음
-      // 얘 next 주소를 새 노드에, 얘 next에 새 노드 주소 넣어주기
       int cursor = 0;
       Node<E> currNode = first;
       while (++cursor < index) {
@@ -103,16 +99,14 @@ public class LinkedList<E> {
       throw new IndexOutOfBoundsException("무효한 인덱스입니다.");
     }
 
-    E old = null;  // 지워질 예정인 노드를 저장해서 리턴하기
+    Node<E> deleted = null;
 
     if (size == 1) {
-      // 1개일 때
-      old = first.value;
+      deleted = first; // 삭제할 노드 보관
       first = last = null;
 
     } else if (index == 0) {
-      // 맨 처음 삭제
-      old = first.value;
+      deleted = first; // 삭제할 노드 보관
       first = first.next;
 
     } else {
@@ -121,15 +115,19 @@ public class LinkedList<E> {
       while (++cursor < index) {
         currNode = currNode.next;
       }
-      old = currNode.next.value;
+      deleted = currNode.next; // 삭제할 노드 보관
       currNode.next = currNode.next.next;
 
-      if (index == size - 1) {
-        // 마지막 node 삭제할 때 last 바꿔줌
+      if (index == (size - 1)) {
         last = currNode;
       }
     }
+
     size--;
+
+    E old = deleted.value;
+    deleted.value = null; // 가비지가 되기 전에 다른 객체를 참조하던 것을 제거한다.
+    deleted.next = null; // 가비지가 되기 전에 다른 객체를 참조하던 것을 제거한다.
     return old;
   }
 
@@ -144,15 +142,17 @@ public class LinkedList<E> {
       prevNode = node;
       node = node.next;
     }
+
     if (node == null) {
       return false;
     }
 
     if (node == first) {
-      first = first.next; // 다음노드를 첫번째노드로. node.next를 썼을때보다 가독성이 좋다
+      first = first.next;
       if (first == null) {
         last = null;
       }
+
     } else {
       prevNode.next = node.next;
     }
@@ -161,9 +161,27 @@ public class LinkedList<E> {
     return true;
   }
 
+  public E[] toArray(final E[] arr) {
+    E[] values = arr;
+    if (values.length < size) {
+      values = Arrays.copyOf(arr, size);
+    }
+
+    int i = 0;
+    Node<E> node = first;
+
+    while (node != null) {
+      values[i++] = node.value;
+      node = node.next;
+    }
+
+    return values;
+  }
+
   private static class Node<E> {
 
     E value;
     Node<E> next;
   }
+
 }
