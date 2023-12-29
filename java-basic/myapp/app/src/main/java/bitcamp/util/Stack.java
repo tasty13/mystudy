@@ -8,12 +8,10 @@ public class Stack<E> extends LinkedList<E> {
   }
 
   public E pop() {
-    // last 꺼내고 그 전 노드를 last로
     return this.remove(this.size() - 1);
   }
 
   public E peek() {
-    // last 출력
     return this.get(this.size() - 1);
   }
 

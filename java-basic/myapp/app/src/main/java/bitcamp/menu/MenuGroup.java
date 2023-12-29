@@ -1,5 +1,6 @@
 package bitcamp.menu;
 
+import bitcamp.util.Iterator;
 import bitcamp.util.LinkedList;
 import bitcamp.util.List;
 import bitcamp.util.Prompt;
@@ -15,15 +16,16 @@ public class MenuGroup extends AbstractMenu {
     super(title, breadcrumb);
   }
 
-  // GoF의 Factory Method 디자인패턴
+  // GoF의 Factory Method 디자인패턴!
   public static MenuGroup getInstance(String title) {
     return new MenuGroup(title, new Stack<String>());
   }
 
   @Override // 인터페이스나 수퍼 클래스의 메서드를 정의하겠다고 컴파일러에게 알린다.
   public void execute(Prompt prompt) {
-    // 메뉴를 실행할 때 메뉴 제목을 breadcrumb 경로에 추가
-    this.breadcrumb.push(this.title);
+    // 메뉴를 실행할 때 메뉴의 제목을 breadcrumb 경로에 추가한다.
+    breadcrumb.push(this.title);
+
     this.printMenu();
 
     while (true) {
@@ -57,8 +59,11 @@ public class MenuGroup extends AbstractMenu {
   private void printMenu() {
     System.out.printf("[%s]\n", this.getTitle());
 
-    for (int i = 0; i < this.menus.size(); i++) {
-      System.out.printf("%d. %s\n", (i + 1), menus.get(i).getTitle());
+    Iterator<Menu> iterator = this.menus.iterator();
+    int i = 1;
+    while (iterator.hasNext()) {
+      Menu menu = iterator.next();
+      System.out.printf("%d. %s\n", i++, menu.getTitle());
     }
 
     System.out.printf("0. %s\n", "이전");
