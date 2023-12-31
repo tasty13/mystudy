@@ -16,8 +16,8 @@ public class Main {
 
     int count = 1;
     int i = 0;
-    while (count <= 30) {
-      if (count != s[i]) {
+    while (count <= s.length + 2) {
+      if (i >= s.length || count != s[i]) {
         System.out.println(count);
         count++;
         continue;
