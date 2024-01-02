@@ -10,14 +10,13 @@ public class Exam0120 {
 
   public static void main(final String[] args) {
     // 1) 로컬 클래스로 서브 클래스 만들기
-    class My extends A {
+    A obj = new A() {
       @Override
       public void print() {
         System.out.println("Hello!");
       }
-    }
+    };
 
-    A obj = new My();
     obj.print();
   }
 }

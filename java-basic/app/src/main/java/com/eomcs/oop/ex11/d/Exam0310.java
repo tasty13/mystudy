@@ -6,9 +6,40 @@ interface Calculator {
   double compute(int money);
 }
 
+
 class CalculatorFactory {
 
-  static Calculator create(float interest) {
+  static Calculator create1(float interest) {
+
+    class CalculatorImpl implements Calculator {
+      float interest; // 이율을 저장할 필드
+
+      CalculatorImpl(float interest) { // 생성자가 호출될 때 이율 받음
+        this.interest = interest;
+      }
+
+      @Override
+      public double compute(int money) {
+        return money + (money * interest);
+      }
+    }
+
+    // create1()이 호출될 떄 넘어오는 interest 파라미터 값을 CalculatorImpl 객체에서 쓰고 싶으면
+    // 다음과 같이 CalculatorImpl 객체를 만들 때 생성자를 통해 전달해야 한다.
+    // -> create1() 메서드 호출이 끝나면 create1()의 로컬 변수 제거되기 때문!
+    return new CalculatorImpl(interest);
+  }
+
+  static Calculator create2(float interest) {
+
+    // 로컬 클래스에서 메서드의 파라미터 값을 사용
+    // -> 컴파일러는 로컬 클래스를 컴파일할 때 파라미터 값을 저장할 수 있도록 관련 코드 자동 추가
+    // -> create1()의 경우처럼 개발자가 직접 코드를 추가할 필요 없음
+    // ex)
+    // float interest;
+    // CalculatorImpl(float interest) { this.interest = interest; }
+    // <- 자동생성
+
 
     class CalculatorImpl implements Calculator {
 
@@ -19,8 +50,8 @@ class CalculatorFactory {
         // CalculatorImpl 객체를 생성하여 리턴한 후에는 interest 로컬 변수는 스택에서 사라진 상태일 것이다.
         // 나중에 compute()를 호출할 때 interest 변수는 없을텐데, 어떻게 된 것인가?
         // => 로컬 클래스에서 메서드의 로컬 변수를 사용한다면
-        //    컴파일러는 로컬 클래스에 바깥 메서드의 로컬 변수 값을 저장할 필드를 추가한다.
-        //    또한 로컬 클래스의 객체를 생성할 때 생성자에 로컬 변수의 값을 넘겨 줄 것이다.
+        // 컴파일러는 로컬 클래스에 바깥 메서드의 로컬 변수 값을 저장할 필드를 추가한다.
+        // 또한 로컬 클래스의 객체를 생성할 때 생성자에 로컬 변수의 값을 넘겨 줄 것이다.
       }
     }
 
@@ -28,11 +59,12 @@ class CalculatorFactory {
   }
 }
 
+
 public class Exam0310 {
 
   public static void main(String[] args) {
-    Calculator c1 = CalculatorFactory.create(0.02f);
-    Calculator c2 = CalculatorFactory.create(0.08f);
+    Calculator c1 = CalculatorFactory.create1(0.02f);
+    Calculator c2 = CalculatorFactory.create2(0.08f);
 
     System.out.printf("%.2f\n", c1.compute(1235_0000));
     System.out.printf("%.2f\n", c2.compute(1235_0000));

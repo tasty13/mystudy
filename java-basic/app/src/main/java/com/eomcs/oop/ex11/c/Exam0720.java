@@ -1,4 +1,4 @@
-// inner class 응용 II : inner 클래스와 인터페이스  
+// inner class 응용 II : inner 클래스와 인터페이스
 package com.eomcs.oop.ex11.c;
 
 import java.util.ArrayList;
@@ -26,10 +26,12 @@ public class Exam0720 {
   }
 }
 
-// 음악 플레이어의 사용법을 정의한다. 
+
+// 음악 플레이어의 사용법을 정의한다.
 interface Player {
   void play();
 }
+
 
 class Musics4 {
 
@@ -46,11 +48,12 @@ class Musics4 {
   // Player 구현 객체를 리턴한다.
   // Player 구현체는 Musics4의 inner 클래스로 되어 있다.
   public Player createPlayer() {
-    return new PlayerImpl(); // ==> this.new PlayerImpl();  // 바깥 클래스의 객체 주소 생략!
+    return new PlayerImpl(); // ==> this.new PlayerImpl(); // 바깥 클래스의 객체 주소 생략!
   }
 
   // 인터페이스 구현체를 inner 클래스로 정의한다.
   class PlayerImpl implements Player {
+    @Override
     public void play() {
       for (final String song : Musics4.this.songs) {
         System.out.println(song);
@@ -58,6 +61,7 @@ class Musics4 {
       System.out.println("-----------------------------");
     }
   }
+
 
 
 }
