@@ -6,10 +6,23 @@ import java.io.InputStreamReader;
 public class Main {
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    // -1이 아니면 인덱스값 넣음
-    // 값으로 찾아서 넣나............
-    String str = br.readLine();
+    int[] result = new int[26];
+    for (int i = 0; i < result.length; i++) {
+      result[i] = -1;
+    }
+    char[] arr = br.readLine().toCharArray();
 
+    for (int i = 0; i < arr.length; i++) {
+      if (result[arr[i] - 'a'] == -1) {
+        result[arr[i] - 'a'] = i;
+      }
+    }
 
+    StringBuilder sb = new StringBuilder();
+    for (int i : result) {
+      sb.append(i);
+      sb.append(" ");
+    }
+    System.out.print(sb);
   }
 }

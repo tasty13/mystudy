@@ -23,24 +23,11 @@ public class Main {
 
       for (int i = 0; i < (last - first + 1) / 2; i++) {
         // first랑 last 바꿔줌
-        int temp = arr[first];
-        arr[first] = arr[last];
-        arr[last] = temp;
+        int temp = arr[first + i];
+        arr[first + i] = arr[last - i];
+        arr[last - i] = temp;
       }
 
-      // int[] reverse = new int[last - first + 1];
-      // System.arraycopy(arr, first, reverse, 0, reverse.length);
-      //
-      // int i = 0;
-      // while (i <= arr.length) {
-      // if (i == first) {
-      // for (int j = reverse.length - 1; j >= 0; j--, i++) {
-      // arr[i] = reverse[j];
-      // }
-      // } else {
-      // i++;
-      // }
-      // }
     }
 
     StringBuilder sb = new StringBuilder();
