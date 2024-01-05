@@ -21,17 +21,17 @@ import bitcamp.myapp.handler.member.MemberModifyHandler;
 import bitcamp.myapp.handler.member.MemberViewHandler;
 import bitcamp.myapp.vo.Assignment;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.CsvString;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class App {
 
@@ -45,14 +45,10 @@ public class App {
   MenuGroup mainMenu;
 
   App() {
-//    loadData("assignment.data", assignmentRepository);
-//    loadData("member.data", memberRepository);
-//    loadData("board.data", boardRepository);
-//    loadData("greeting.data", greetingRepository);
-    assignmentRepository = loadData("assignment.data");
-    memberRepository = loadData("member.data");
-    boardRepository = loadData("board.data");
-    greetingRepository = loadData("greeting.data");
+    assignmentRepository = loadData("assignment.csv", Assignment.class);
+    memberRepository = loadData("member.csv", Member.class);
+    boardRepository = loadData("board.csv", Board.class);
+    greetingRepository = loadData("greeting.csv", Board.class);
     prepareMenu();
   }
 
@@ -104,60 +100,53 @@ public class App {
         System.out.println("예외 발생!");
       }
     }
-    saveData("assignment.data", assignmentRepository);
-    saveData("member.data", memberRepository);
-    saveData("board.data", boardRepository);
-    saveData("greeting.data", greetingRepository);
+    saveData("assignment.csv", assignmentRepository);
+    saveData("member.csv", memberRepository);
+    saveData("board.csv", boardRepository);
+    saveData("greeting.csv", greetingRepository);
   }
 
-//  <E> void loadData(String filepath, List<E> dataList) {
-//    try (ObjectInputStream in = new ObjectInputStream(
-//        new BufferedInputStream(new FileInputStream(filepath)))) {
-//
-//      List<E> list = (List<E>) in.readObject();
-//      dataList.addAll(list);
-//
-//    } catch (Exception e) {
-//      System.out.printf("%s 파일 로딩 중 오류 발생!\n", filepath);
-//      e.printStackTrace();
-//    }
-//  }
-
-  <E> List<E> loadData(String filepath) {
+  <E> List<E> loadData(String filepath, Class<E> clazz) {
     // Class class-> 예약어라 class 일케는 못쓰고 cls/clazz/clz 이런식으로씀
 
-    try (ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(new FileInputStream(filepath)))) {
+    // 0) 객체를 저장할 리스트를 준비한다.
+    ArrayList<E> list = new ArrayList<>();
 
-      return (List<E>) in.readObject();
+    try (Scanner in = new Scanner(new FileReader(filepath))) {
+
+      // 1) 클래스 정보를 가지고 팩토리 메서드를 알아낸다.
+      Method factoryMethod = clazz.getMethod("createFromCsv", String.class);
+
+      while (true) {
+        // 2) 팩토리 메서드를 호출하여 CSV 문자열을 전달하고 객체를 리턴받는다.
+        E obj = (E) factoryMethod.invoke(null, in.nextLine());
+
+        // 3) 생성한 객체를 List에 저장한다.
+        list.add(obj);
+      }
+
+    } catch (NoSuchElementException e) {
+      System.out.printf("%s 파일 로딩 완료!\n", filepath);
 
     } catch (Exception e) {
       System.out.printf("%s 파일 로딩 중 오류 발생!\n", filepath);
       e.printStackTrace();
     }
-    return new ArrayList<>();
+    return list;
   }
 
-  void saveData(String filepath, List<?/* extends CsvString*/> dataList) {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-        new BufferedOutputStream(new FileOutputStream(filepath)))) {
+  void saveData(String filepath, List<? extends CsvString> dataList) {
 
-      out.writeObject(dataList);
+    try (FileWriter out = new FileWriter(filepath)) {
+
+      for (CsvString csvObject : dataList) {
+        String csv = csvObject.toCsvString();
+        out.write(csv + "\n");
+      }
 
     } catch (Exception e) {
       System.out.printf("%s 파일 저장 중 오류 발생!\n", filepath);
       e.printStackTrace();
     }
-//    try (FileWriter out = new FileWriter(filepath)) {
-//
-//      for (CsvString csvObject : dataList) {
-//        String csv = csvObject.toCsvString();
-//        out.write(csv + "\n");
-//      }
-//
-//    } catch (Exception e) {
-//      System.out.printf("%s 파일 저장 중 오류 발생!\n", filepath);
-//      e.printStackTrace();
-//    }
   }
 }
