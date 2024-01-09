@@ -20,3 +20,10 @@ public class Exam0214 extends com.eomcs.oop.ex08.b.sub.Y {
 // (default)    : private + 같은 패키지 소속
 // protected    : (default) + 서브 클래스로 만든 변수인 경우 서브 클래스에서 접근 가능
 // public       : 모두 접근 가능
+//
+
+
+
+
+
+

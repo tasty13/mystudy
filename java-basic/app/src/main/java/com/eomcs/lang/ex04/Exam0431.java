@@ -1,6 +1,6 @@
 package com.eomcs.lang.ex04;
 
-// # 문자 변수 - 변수의 메모리 크기
+//# 문자 변수 - 변수의 메모리 크기
 //
 public class Exam0431 {
   public static void main(String[] args) {
@@ -15,9 +15,9 @@ public class Exam0431 {
     c = 0;
     c = 65535;
 
-    // char(2byte) 크기의 메모리 범위를 초과하면 문법 오류이다.
-    // c = -1; // 컴파일 오류 발생!
-    // c = 65536; // 컴파일 오류 발생!
+    // char(2byte) 크기의 메모리 범위를 초과하면 문법 오류이다. 
+    //c = -1; // 컴파일 오류 발생!
+    //c = 65536; // 컴파일 오류 발생!
 
   }
 }

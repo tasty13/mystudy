@@ -1,6 +1,6 @@
 package com.eomcs.lang.ex07;
 
-// # 메서드 : 스택 메모리 응용 I
+//# 메서드 : 스택 메모리 응용 I
 //
 public class Exam0440 {
 
@@ -19,8 +19,7 @@ public class Exam0440 {
   }
 
   public static void main(String[] args) {
-    int r = m1(5);// 로컬 변수는 메서드 호출하는 시점에 메모리가 연속해서 만들어짐.
-                  // 값 할당할 메모리는 먼저 만들어지고 나서 메서드 호출하고 값 넣고 ~
+    int r = m1(5);
     System.out.println(r);
   }
 }

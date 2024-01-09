@@ -16,10 +16,12 @@ public class Exam0310 {
         System.out.println("정말 반갑습니다!");
       }
 
-      public void m() {}
-    };
-    obj.print(); // 컴파일 OK (print는 A의 메서드. JVM이 호출할 때는 실제 메서드 호출)
+      public void m() {
 
-    // obj.m(); // -> obj 타입에 정의된 메서드 아님 -> 컴파일 오류
+      }
+    };
+    obj.print(); // 컴파일 OK! print()는 A의 메서드이다. JVM이 호출할 때는 실제 메서드를 호출한다. 
+
+    //    obj.m(); // 컴파일 오류! 왜? obj의 타입에 정의된 메서드가 아니다. 
   }
 }

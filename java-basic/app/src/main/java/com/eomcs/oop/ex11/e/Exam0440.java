@@ -48,5 +48,6 @@ public class Exam0440 {
     //    }
     //    A temp = new Exam0440$2();
     //    m1(temp);
+
   }
 }
