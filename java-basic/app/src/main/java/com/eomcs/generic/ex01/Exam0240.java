@@ -6,15 +6,23 @@ import com.eomcs.generic.ex02.Member;
 public class Exam0240 {
 
   static class Box<T> {
-    T value; 
-    public T get() {return this.value;}
-    public void set(T value) {this.value = value;}
+    T value;
+
+    public T get() {
+      return this.value;
+    }
+
+    public void set(T value) {
+      this.value = value;
+    }
+    // T -> 컴파일할 때 Object로 바뀜
   }
 
   public static void main(String[] args) {
 
-    // 제네릭을 사용하면 한 개의 클래스를 가지고 
+    // 제네릭을 사용하면 한 개의 클래스를 가지고
     // 특정 타입만을 다루는 전용 객체를 만들 수 있다.
+    // ** Box가 특정 타입으로 만들어지는 것이 아니라 컴파일할 때 코드 검사 용도
     Box<Member> b1 = new Box<>();
     Box<String> b2 = new Box<>();
     Box<Integer> b3 = new Box<>();

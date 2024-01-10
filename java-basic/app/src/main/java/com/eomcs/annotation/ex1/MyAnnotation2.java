@@ -15,7 +15,7 @@ public @interface MyAnnotation2 {
   //    그래서 프로퍼티의 이름을 변수 형태로 짓는 것이다.
   //    즉, getValue 가 아니라 value라고 한다.
   String value(); // 애노테이션의 기본 프로퍼티이다.
-
+  // 파라미터 선언 안됨!!
 }
 
 

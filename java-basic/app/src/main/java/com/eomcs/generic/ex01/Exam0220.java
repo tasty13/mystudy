@@ -1,4 +1,4 @@
-// 클래스에 제네릭(generic) 적용하기 :  Object를 이용한 다형적 변수 사용할 때 형변환이 불편한다.
+// 클래스에 제네릭(generic) 적용하기 :  Object를 이용한 다형적 변수 사용할 때 형변환이 불편하다.
 package com.eomcs.generic.ex01;
 
 import java.util.Date;

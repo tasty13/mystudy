@@ -8,9 +8,3 @@ public @interface MyAnnotation2 {
 }
 
 
-
-
-
-
-
-

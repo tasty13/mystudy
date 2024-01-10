@@ -30,7 +30,7 @@ public class Exam0225 {
     //    m1(new ArrayList<C>()); // 컴파일 오류! 
   }
 
-  static void m1(ArrayList<? super B1> list) {
+  static void m1(ArrayList<? super B1> list) {  // 승용차를 담는 창고
     // ? 를 사용하면 정확한 타입을 알 수 없다.
     // 타입이 결정되지 않은 상태에서도 유효한 코드라면 컴파일을 해준다.
     // 타입이 결정되지 않아 유효한지 아닌지 결정할 수 없는 코드라면 컴파일 오류이다.
@@ -38,7 +38,7 @@ public class Exam0225 {
     //    list.add(new Object()); // 컴파일 오류!
     //    list.add(new A());
     list.add(new B1()); // OK
-    list.add(new C()); // OK
+    list.add(new C()); // OK    
 
     Object obj1 = list.get(0);
 
