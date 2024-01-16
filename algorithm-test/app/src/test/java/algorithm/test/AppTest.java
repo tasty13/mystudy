@@ -3,12 +3,6 @@
  */
 package algorithm.test;
 
-import org.junit.jupiter.api.Test;
-import algorithm.test.baekjoon.Main;
-
 class AppTest {
-  @Test
-  void appHasAGreeting() {
-    Main classUnderTest = new Main();
-  }
+
 }

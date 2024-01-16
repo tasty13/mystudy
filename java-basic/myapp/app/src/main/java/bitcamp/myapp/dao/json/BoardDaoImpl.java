@@ -1,6 +1,5 @@
 package bitcamp.myapp.dao.json;
 
-import bitcamp.myapp.dao.AbstractDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import java.util.List;
@@ -29,6 +28,7 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
     if (index == -1) {
       return 0;
     }
+
     list.remove(index);
     saveData();
     return 1;
@@ -36,7 +36,6 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-    // 조회용으로 쓸 수 있도록 별도의 서브리스트 만듦
     return this.list.subList(0, list.size());
   }
 
