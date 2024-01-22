@@ -19,7 +19,6 @@ public class Server0110 {
     ServerSocket ss = new ServerSocket(8888);
 
     System.out.println("엔터를 치면 대기열에서 기다리고 있는 클라이언트의 소캣을 생성한다.>");
-    keyboardScanner.nextLine();
 
     Socket socket = ss.accept();
     System.out.println("클라이언트와 통신할 소캣을 준비하였다!");
