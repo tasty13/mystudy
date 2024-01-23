@@ -8,7 +8,7 @@ public class Exam04 {
 
   public static void main(String[] args) throws Exception {
     // 서버에 보내는 파라미터를 표시
-    // - http://서버주소:포트/자원경로?파라미터명=값&파라미터명=값&파라미터명=값
+    // - http://서버주소:포트/자원경로?파라미터명=값&파라미터명=값&파라미터명=값 
     URL url = new URI("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=bitcamp").toURL();
 
     // URL 분석

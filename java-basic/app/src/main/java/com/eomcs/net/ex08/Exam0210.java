@@ -40,9 +40,8 @@ public class Exam0210 {
 
     while (true) {
       String str = in2.readLine();
-      if (str == null) {
+      if (str == null)
         break;
-      }
 
       System.out.println(str);
     }
