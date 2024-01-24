@@ -1,22 +1,29 @@
 package algorithm.test.baekjoon.level08.exam03;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class Main {
   public static void main(String[] args) throws Exception {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    int T = Integer.parseInt(br.readLine());
+    int T = readInt();
 
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < T; i++) {
-      int C = Integer.parseInt(br.readLine()) % 5;
-      sb.append(C / 0.25).append(" ");
-      sb.append(C % 0.25 / 0.1).append(" ");
-      sb.append(C % 0.1 / 0.05).append(" ");
-      sb.append(C % 0.05 / 0.01).append(" ");
+      int C = readInt();
+      sb.append(C / 25).append(" ");
+      sb.append((C = C % 25) / 10).append(" ");
+      sb.append((C = C % 10) / 5).append(" ");
+      sb.append((C = C % 5) / 1);
       sb.append("\n");
     }
     System.out.print(sb);
+  }
+
+  static int readInt() throws Exception {
+    int c, n = System.in.read() & 15;
+    while ((c = System.in.read()) > 32) {
+      n = (n << 3) + (n << 1) + (c & 15);
+    }
+    if (c == 13) {
+      System.in.read();
+    }
+    return n;
   }
 }

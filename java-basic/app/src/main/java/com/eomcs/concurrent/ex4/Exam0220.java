@@ -11,19 +11,18 @@ public class Exam0220 {
       @Override
       public void run() {
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 100000000; i++) {
+        for (int i = 0; i < 100000000; i++)
           Math.asin(38.567); // 시간 끌기 용. 왜? 부동소수점 연산은 시간을 많이 소요.
-        }
         long endTime = System.currentTimeMillis();
-        System.out.printf("%s 스레드 실행 시간 = %d\n", getName(), endTime - startTime);
+        System.out.printf("%s 스레드 실행 시간: %d\n", getName(), endTime - startTime);
       }
     }
 
-    MyThread t1 = new MyThread("홍길동(10)");
+    MyThread t1 = new MyThread("홍길동(1)");
     t1.setPriority(1);
 
-    MyThread t2 = new MyThread("임꺽정(1)");
-    t1.setPriority(10);
+    MyThread t2 = new MyThread("임꺽정(10)");
+    t2.setPriority(10);
 
     // 유닉스 계열의 OS는 스케줄링에서 우선 순위를 고려하여 CPU를 배분한다.
     // 그러나 Windows OS는 우선 순위를 덜 고려하여 CPU를 배분한다.
