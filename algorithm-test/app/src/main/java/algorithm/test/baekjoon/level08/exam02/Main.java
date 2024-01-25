@@ -6,27 +6,25 @@ public class Main {
     int r = readInt();
 
     int k = 0;
-    int tmp = num;
-
-    // 이진법 해결하기
-
-    while ((tmp = tmp - (int) (Math.pow(r, ++k))) > 0) {
-      System.out.print(tmp + " " + k + "\n");
+    while (true) {
+      if (num - (int) (Math.pow(r, ++k)) <= 0) {
+        break;
+      }
     }
 
     StringBuilder sb = new StringBuilder();
     for (int i = k - 1; i >= 0; i--) {
       int n = num / (int) (Math.pow(r, i));
       num = num - (int) (Math.pow(r, i)) * n;
-      char c;
-      if (n > 9) {
-        c = (char) (n - 10 + 'A');
+      if (n == r) {
+        sb.append(10);
+      } else if (n > 9) {
+        char c = (char) (n - 10 + 'A');
+        sb.append(c);
       } else {
-        c = (char) (n + '0');
+        sb.append(n);
       }
-      sb.append(c);
     }
-    System.out.println();
     System.out.println(sb);
   }
 
