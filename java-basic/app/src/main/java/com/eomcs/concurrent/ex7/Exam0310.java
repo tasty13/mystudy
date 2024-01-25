@@ -16,20 +16,19 @@ public class Exam0310 {
     @Override
     public void run() {
       try {
-        System.out.printf("%s 스레드 실행 중...\n",
-            Thread.currentThread().getName());
+        System.out.printf("%s 스레드 실행 중...\n", Thread.currentThread().getName());
 
         Thread.sleep(millisec);
 
-        System.out.printf("%s 스레드 종료!\n",
-            Thread.currentThread().getName());
+        System.out.printf("%s 스레드 종료!\n", Thread.currentThread().getName());
       } catch (Exception e) {
         System.out.printf("%s 스레드 실행 중 오류 발생!\n", Thread.currentThread().getName());
       }
     }
   }
+
   public static void main(String[] args) {
-    ExecutorService executorService = Executors.newFixedThreadPool(3);
+    ExecutorService executorService = Executors.newFixedThreadPool(3); // queue 방식(선입선출)
 
     // 스레드풀에 수행할 작업을 등록한다.
     // 스레드풀은 execute()를 호출한 순서대로 작업큐에 작업을 보관한다.
@@ -38,6 +37,9 @@ public class Exam0310 {
     // 스레드가 최대 개수라면 기존 스레드가 작업을 끝낼 때까지 기다린다.
     // => 수행한 작업의 종료 여부를 확인할 수 없다.
     executorService.execute(new MyRunnable(6000));
+
+    // 더이상 맡은 작업이 없으면 스레드풀을 종료하라고 지시
+    executorService.shutdown();
 
     System.out.println("main() 종료!");
   }

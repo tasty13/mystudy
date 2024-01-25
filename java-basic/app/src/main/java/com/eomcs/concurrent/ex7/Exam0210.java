@@ -16,8 +16,8 @@ public class Exam0210 {
     @Override
     public void run() {
       try {
-        System.out.printf("[%s] - 스레드에서 작업 실행 중...\n",
-            Thread.currentThread().getName());
+        System.out.printf("[%s] - 스레드에서 작업 실행 중...(%d)\n",
+            Thread.currentThread().getName(), millisec);
 
         Thread.sleep(millisec);
 
@@ -44,10 +44,12 @@ public class Exam0210 {
     //   다른 스레드의 작업이 끝날 때까지 작업큐에 대기하고 있는다.
     // - 작업을 끝낸 스레드가 생기면 큐에서 작업을 꺼내 실행한다.
     //
-    executorService.execute(new MyRunnable(2000));
-    executorService.execute(new MyRunnable(4000));
+    executorService.execute(new MyRunnable(2000));  // 가장 먼저 끝난 2번째 스레드가 작업 실행
+    executorService.execute(new MyRunnable(4000));  // 또먼저끝나서 또실행
 
-    System.out.println("main() 종료!");
+    executorService.shutdown();
+    
+    System.out.println("main() 종료!");   // 작업지시(execute) 명령 후 자기작업 종료
   }
 }
 
