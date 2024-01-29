@@ -24,7 +24,6 @@ import bitcamp.myapp.handler.member.MemberListHandler;
 import bitcamp.myapp.handler.member.MemberModifyHandler;
 import bitcamp.myapp.handler.member.MemberViewHandler;
 import bitcamp.util.Prompt;
-import com.mysql.jdbc.Driver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -51,8 +50,8 @@ public class ClientApp {
 
   void prepareDatabase() {
     try {
-      // JVM이 JDBC 드라이버 파일(.jar)에 설정된 대로 자동으로 처리한다.
-//      Driver driver = new com.mysql.jdbc.Driver();
+      // JVM이 JDBC 드라이버 파일(.jar)에 설정된대로 자동으로 처리한다.
+//      Driver driver = new com.mysql.cj.jdbc.Driver();
 //      DriverManager.registerDriver(driver);
 
       Connection con = DriverManager.getConnection(
@@ -114,4 +113,5 @@ public class ClientApp {
       }
     }
   }
+
 }
