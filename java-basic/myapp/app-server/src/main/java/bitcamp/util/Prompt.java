@@ -4,17 +4,15 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.util.Scanner;
 
-public class Prompt implements AutoCloseable {
+public class Prompt {
 
   private Scanner keyIn;
 
   public Prompt(InputStream in) {
-
     keyIn = new Scanner(in);
   }
 
   public String input(String title, Object... args) {
-    System.out.print(String.format(title, args));
     return this.keyIn.nextLine();
   }
 
