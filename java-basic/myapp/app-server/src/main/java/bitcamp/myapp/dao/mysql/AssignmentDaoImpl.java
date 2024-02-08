@@ -25,6 +25,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
       pstmt.setString(1, assignment.getTitle());
       pstmt.setString(2, assignment.getContent());
       pstmt.setDate(3, assignment.getDeadline());
+
       pstmt.executeUpdate();
 
     } catch (Exception e) {
@@ -64,7 +65,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
       return list;
 
     } catch (Exception e) {
-      throw new DaoException("데이터 불러오기 오류", e);
+      throw new DaoException("데이터 가져오기 오류", e);
     }
   }
 
@@ -76,20 +77,20 @@ public class AssignmentDaoImpl implements AssignmentDao {
       pstmt.setInt(1, no);
 
       try (ResultSet rs = pstmt.executeQuery()) {
+
         if (rs.next()) {
           Assignment assignment = new Assignment();
           assignment.setNo(rs.getInt("assignment_no"));
           assignment.setTitle(rs.getString("title"));
           assignment.setContent(rs.getString("content"));
           assignment.setDeadline(rs.getDate("deadline"));
-
           return assignment;
         }
         return null;
       }
 
     } catch (Exception e) {
-      throw new DaoException("데이터 불러오기 오류", e);
+      throw new DaoException("데이터 가져오기 오류", e);
     }
   }
 
@@ -97,7 +98,7 @@ public class AssignmentDaoImpl implements AssignmentDao {
   public int update(Assignment assignment) {
     try (PreparedStatement pstmt = con.prepareStatement(
         "update assignments set title=?, content=?, deadline=? where assignment_no=?")) {
-      
+
       pstmt.setString(1, assignment.getTitle());
       pstmt.setString(2, assignment.getContent());
       pstmt.setDate(3, assignment.getDeadline());
