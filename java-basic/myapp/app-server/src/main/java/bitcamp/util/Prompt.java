@@ -2,24 +2,19 @@ package bitcamp.util;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Date;
-import java.util.Scanner;
+import java.util.Stack;
 
 public class Prompt implements AutoCloseable {
 
-  private Scanner keyIn;
+  Stack<String> breadcrumb = new Stack<>();
 
   private DataInputStream in;
   private DataOutputStream out;
   private StringWriter stringWriter = new StringWriter();
   private PrintWriter writer = new PrintWriter(stringWriter);
-
-  public Prompt(InputStream in) {
-    keyIn = new Scanner(in);
-  }
 
   public Prompt(DataInputStream in, DataOutputStream out) {
     this.in = in;
@@ -81,28 +76,20 @@ public class Prompt implements AutoCloseable {
     out.writeUTF(content);
   }
 
-  public String input() throws Exception {
-    return in.readUTF();
-  }
-
-  public int inputInt() throws Exception {
-    return Integer.parseInt(this.input());
-  }
-
-  public float inputFloat() throws Exception {
-    return Float.parseFloat(this.input());
-  }
-
-  public boolean inputBoolean() throws Exception {
-    return Boolean.parseBoolean(this.input());
-  }
-
-  public Date inputDate() throws Exception {
-    return Date.valueOf(this.input());
-  }
-
   public void close() throws Exception {
     writer.close();
     stringWriter.close();
+  }
+
+  public void pushPath(String path) {
+    breadcrumb.push(path);
+  }
+
+  public String popPath() {
+    return breadcrumb.pop();
+  }
+
+  public String getFullPath() {
+    return String.join("/", breadcrumb.toArray(new String[0]));
   }
 }

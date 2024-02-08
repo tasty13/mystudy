@@ -4,7 +4,6 @@ import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
-import java.util.Date;
 
 public class BoardAddHandler extends AbstractMenuHandler {
 
