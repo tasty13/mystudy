@@ -23,6 +23,7 @@ public class MemberListHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
+
       prompt.printf("%-4s\t%-10s\t%30s\t%s\n", "번호", "이름", "이메일", "가입일");
 
       List<Member> list = memberDao.findAll();
@@ -34,7 +35,6 @@ public class MemberListHandler extends AbstractMenuHandler {
             member.getEmail(),
             member.getCreatedDate());
       }
-
     } catch (Exception e) {
       prompt.println("목록 오류!");
 

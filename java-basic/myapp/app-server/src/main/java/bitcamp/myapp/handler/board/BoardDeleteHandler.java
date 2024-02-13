@@ -8,7 +8,7 @@ import java.sql.Connection;
 
 public class BoardDeleteHandler extends AbstractMenuHandler {
 
-  private DBConnectionPool connectionPool;
+  DBConnectionPool connectionPool;
   private BoardDao boardDao;
 
   public BoardDeleteHandler(DBConnectionPool connectionPool, BoardDao boardDao) {
@@ -21,13 +21,13 @@ public class BoardDeleteHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
+
       int no = prompt.inputInt("번호? ");
       if (boardDao.delete(no) == 0) {
         prompt.println("게시글 번호가 유효하지 않습니다.");
       } else {
         prompt.println("삭제했습니다!");
       }
-
     } catch (Exception e) {
       prompt.println("삭제 오류!");
 

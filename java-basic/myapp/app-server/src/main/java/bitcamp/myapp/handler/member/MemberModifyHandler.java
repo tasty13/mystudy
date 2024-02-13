@@ -22,6 +22,7 @@ public class MemberModifyHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
+
       int no = prompt.inputInt("번호? ");
 
       Member old = memberDao.findBy(no);

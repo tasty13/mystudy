@@ -22,6 +22,7 @@ public class MemberViewHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
+
       int no = prompt.inputInt("번호? ");
 
       Member member = memberDao.findBy(no);

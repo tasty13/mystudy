@@ -22,6 +22,7 @@ public class BoardModifyHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
+
       int no = prompt.inputInt("번호? ");
 
       Board oldBoard = boardDao.findBy(no);

@@ -27,6 +27,7 @@ public class BoardAddHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
+
       con.setAutoCommit(false);
 
       boardDao.add(board);

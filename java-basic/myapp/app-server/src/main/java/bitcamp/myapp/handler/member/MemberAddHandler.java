@@ -23,7 +23,6 @@ public class MemberAddHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
-      con.setAutoCommit(false);
 
       Member member = new Member();
       member.setEmail(prompt.input("이메일? "));
@@ -34,6 +33,7 @@ public class MemberAddHandler extends AbstractMenuHandler {
       memberDao.add(member);
 
     } catch (Exception e) {
+      prompt.println("등록 오류!");
 
     } finally {
       connectionPool.returnConnection(con);
