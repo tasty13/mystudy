@@ -9,7 +9,7 @@ import java.sql.Connection;
 
 public class AssignmentViewHandler extends AbstractMenuHandler {
 
-  DBConnectionPool connectionPool;
+  private DBConnectionPool connectionPool;
   private AssignmentDao assignmentDao;
 
   public AssignmentViewHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
@@ -22,8 +22,8 @@ public class AssignmentViewHandler extends AbstractMenuHandler {
     Connection con = null;
     try {
       con = connectionPool.getConnection();
-      int no = prompt.inputInt("번호? ");
 
+      int no = prompt.inputInt("번호? ");
       Assignment assignment = assignmentDao.findBy(no);
       if (assignment == null) {
         prompt.println("과제 번호가 유효하지 않습니다!");
@@ -37,6 +37,7 @@ public class AssignmentViewHandler extends AbstractMenuHandler {
 
     } catch (Exception e) {
       prompt.println("조회 오류!");
+      
     } finally {
       connectionPool.returnConnection(con);
     }

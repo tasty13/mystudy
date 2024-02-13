@@ -9,7 +9,7 @@ import java.sql.Connection;
 
 public class AssignmentModifyHandler extends AbstractMenuHandler {
 
-  DBConnectionPool connectionPool;
+  private DBConnectionPool connectionPool;
   private AssignmentDao assignmentDao;
 
   public AssignmentModifyHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
@@ -50,6 +50,7 @@ public class AssignmentModifyHandler extends AbstractMenuHandler {
     } catch (Exception e) {
       prompt.println("실행 오류!");
       e.printStackTrace();
+
     } finally {
       connectionPool.returnConnection(con);
     }

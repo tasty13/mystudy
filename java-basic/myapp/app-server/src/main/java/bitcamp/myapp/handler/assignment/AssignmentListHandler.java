@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AssignmentListHandler extends AbstractMenuHandler {
 
-  DBConnectionPool connectionPool;
+  private DBConnectionPool connectionPool;
   private AssignmentDao assignmentDao;
 
   public AssignmentListHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
@@ -33,8 +33,10 @@ public class AssignmentListHandler extends AbstractMenuHandler {
             assignment.getTitle(),
             assignment.getDeadline());
       }
+
     } catch (Exception e) {
-      prompt.println("삭제 오류!");
+      prompt.println("목록 오류!");
+
     } finally {
       connectionPool.returnConnection(con);
     }

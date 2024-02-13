@@ -26,7 +26,6 @@ public class Prompt implements AutoCloseable {
       printf(str, args);
       end();
       return in.readUTF();
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -48,7 +47,7 @@ public class Prompt implements AutoCloseable {
     return Date.valueOf(this.input(str, args));
   }
 
-  // -------------------------------------------------------------------------
+  // ------------------------------------------------------------
 
   public void print(String str) {
     writer.print(str);

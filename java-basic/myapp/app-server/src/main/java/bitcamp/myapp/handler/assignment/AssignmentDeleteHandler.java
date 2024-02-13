@@ -8,7 +8,7 @@ import java.sql.Connection;
 
 public class AssignmentDeleteHandler extends AbstractMenuHandler {
 
-  DBConnectionPool connectionPool;
+  private DBConnectionPool connectionPool;
   private AssignmentDao assignmentDao;
 
   public AssignmentDeleteHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
@@ -30,9 +30,9 @@ public class AssignmentDeleteHandler extends AbstractMenuHandler {
 
     } catch (Exception e) {
       prompt.println("삭제 오류!");
+
     } finally {
       connectionPool.returnConnection(con);
     }
-
   }
 }

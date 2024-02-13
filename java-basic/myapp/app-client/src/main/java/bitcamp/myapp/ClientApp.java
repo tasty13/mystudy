@@ -13,7 +13,7 @@ public class ClientApp {
   public static void main(String[] args) {
     new ClientApp()
         .server("localhost")
-//        .server("192.168.0.49")
+//        .server("192.168.0.56")
         .port(8888)
         .run();
   }
@@ -33,6 +33,7 @@ public class ClientApp {
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         Prompt prompt = new Prompt(System.in)) {
+
       while (true) {
         String response = in.readUTF();
         if (response.equals("[[quit!]]")) {
@@ -44,7 +45,7 @@ public class ClientApp {
         out.writeUTF(input);
       }
 
-      System.out.println("서버 연결 종료");
+      System.out.println("서버 연결 종료!");
 
     } catch (Exception e) {
       System.out.println("서버 통신 오류!");

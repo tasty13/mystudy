@@ -3,14 +3,15 @@ package bitcamp.myapp.handler.assignment;
 import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.util.Prompt;
 import bitcamp.util.DBConnectionPool;
+import bitcamp.util.Prompt;
 import java.sql.Connection;
 
 public class AssignmentAddHandler extends AbstractMenuHandler {
 
-  DBConnectionPool connectionPool;
+  private DBConnectionPool connectionPool;
   private AssignmentDao assignmentDao;
+
 
   public AssignmentAddHandler(DBConnectionPool connectionPool, AssignmentDao assignmentDao) {
     this.connectionPool = connectionPool;
@@ -34,6 +35,7 @@ public class AssignmentAddHandler extends AbstractMenuHandler {
 
       con.rollback();
 
+
     } catch (Exception e) {
       prompt.println("과제 입력 중 오류 발생!");
       prompt.println("다시 시도하시기 바랍니다.");
@@ -43,8 +45,8 @@ public class AssignmentAddHandler extends AbstractMenuHandler {
       try {
         con.setAutoCommit(true);
       } catch (Exception e) {
-
       }
+
       connectionPool.returnConnection(con);
     }
   }
