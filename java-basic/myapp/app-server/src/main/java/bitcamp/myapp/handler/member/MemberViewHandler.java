@@ -3,9 +3,7 @@ package bitcamp.myapp.handler.member;
 import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.Prompt;
-import java.sql.Connection;
 
 public class MemberViewHandler extends AbstractMenuHandler {
 
@@ -33,7 +31,6 @@ public class MemberViewHandler extends AbstractMenuHandler {
 
     } catch (Exception e) {
       prompt.println("조회 오류!");
-
     }
   }
 }

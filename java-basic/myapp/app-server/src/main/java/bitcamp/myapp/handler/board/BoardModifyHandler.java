@@ -3,9 +3,7 @@ package bitcamp.myapp.handler.board;
 import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.Prompt;
-import java.sql.Connection;
 
 public class BoardModifyHandler extends AbstractMenuHandler {
 
@@ -38,7 +36,6 @@ public class BoardModifyHandler extends AbstractMenuHandler {
 
     } catch (Exception e) {
       prompt.println("변경 오류!");
-
     }
   }
 }

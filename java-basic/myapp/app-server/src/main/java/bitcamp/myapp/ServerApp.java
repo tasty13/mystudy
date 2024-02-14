@@ -120,11 +120,11 @@ public class ServerApp {
 
   void run() {
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
+
       while (true) {
         Socket socket = serverSocket.accept();
         executorService.execute(() -> processRequest(socket));
       }
-
     } catch (Exception e) {
       System.out.println("서버 소켓 생성 오류!");
       e.printStackTrace();

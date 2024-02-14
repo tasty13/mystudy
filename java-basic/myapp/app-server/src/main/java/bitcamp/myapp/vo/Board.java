@@ -1,10 +1,8 @@
 package bitcamp.myapp.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.checkerframework.checker.units.qual.A;
 
 public class Board implements Serializable {
 

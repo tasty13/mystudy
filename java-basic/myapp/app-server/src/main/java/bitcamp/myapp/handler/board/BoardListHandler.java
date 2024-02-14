@@ -3,9 +3,7 @@ package bitcamp.myapp.handler.board;
 import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.Prompt;
-import java.sql.Connection;
 import java.util.List;
 
 public class BoardListHandler extends AbstractMenuHandler {
@@ -30,7 +28,6 @@ public class BoardListHandler extends AbstractMenuHandler {
             board.getWriter(),
             board.getCreatedDate());
       }
-
     } catch (Exception e) {
       prompt.println("목록 오류!");
     }

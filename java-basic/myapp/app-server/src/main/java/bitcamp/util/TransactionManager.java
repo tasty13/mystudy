@@ -21,7 +21,7 @@ public class TransactionManager {
   }
 
   public void rollback() throws Exception {
-    connectionPool.getConnection();
+    connectionPool.getConnection().rollback();
     complete();
   }
 

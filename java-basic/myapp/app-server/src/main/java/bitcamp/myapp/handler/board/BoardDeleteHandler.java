@@ -2,9 +2,7 @@ package bitcamp.myapp.handler.board;
 
 import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.Prompt;
-import java.sql.Connection;
 
 public class BoardDeleteHandler extends AbstractMenuHandler {
 
@@ -25,7 +23,6 @@ public class BoardDeleteHandler extends AbstractMenuHandler {
       }
     } catch (Exception e) {
       prompt.println("삭제 오류!");
-
     }
   }
 }

@@ -7,7 +7,6 @@ import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.Prompt;
 import bitcamp.util.TransactionManager;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class BoardAddHandler extends AbstractMenuHandler {
@@ -32,7 +31,7 @@ public class BoardAddHandler extends AbstractMenuHandler {
 
     ArrayList<AttachedFile> files = new ArrayList<>();
     while (true) {
-      String filepath = prompt.input("파일?(종료는 엔터) ");
+      String filepath = prompt.input("파일?(종료: 그냥 엔터) ");
       if (filepath.length() == 0) {
         break;
       }
@@ -45,7 +44,7 @@ public class BoardAddHandler extends AbstractMenuHandler {
       boardDao.add(board);
 
       if (files.size() > 0) {
-        // 첨부파일 번호에 게시글 번호 저장
+        // 첨부파일 객체에 게시글 번호 저장
         for (AttachedFile file : files) {
           file.setBoardNo(board.getNo());
         }
@@ -58,7 +57,6 @@ public class BoardAddHandler extends AbstractMenuHandler {
       try {
         txManager.rollback();
       } catch (Exception e2) {
-
       }
       prompt.println("게시글 등록 오류!");
     }

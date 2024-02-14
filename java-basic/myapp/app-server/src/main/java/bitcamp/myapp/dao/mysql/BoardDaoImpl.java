@@ -12,17 +12,17 @@ import java.util.List;
 
 public class BoardDaoImpl implements BoardDao {
 
-  DBConnectionPool DBConnectionPool;
+  DBConnectionPool connectionPool;
   int category;
 
-  public BoardDaoImpl(DBConnectionPool DBConnectionPool, int category) {
-    this.DBConnectionPool = DBConnectionPool;
+  public BoardDaoImpl(DBConnectionPool connectionPool, int category) {
+    this.connectionPool = connectionPool;
     this.category = category;
   }
 
   @Override
   public void add(Board board) {
-    try (Connection con = DBConnectionPool.getConnection();
+    try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "insert into boards(title,content,writer,category) values(?,?,?,?)",
             PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -34,11 +34,12 @@ public class BoardDaoImpl implements BoardDao {
 
       pstmt.executeUpdate();
 
-      // 자동 생성된 PK값 가져와서 Board 객체에 저장
+      // 자동 생성된 PK 값을 가져와서 Board 객체에 저장한다.
       try (ResultSet keyRs = pstmt.getGeneratedKeys()) {
         keyRs.next();
         board.setNo(keyRs.getInt(1));
       }
+
 
     } catch (Exception e) {
       throw new DaoException("데이터 입력 오류", e);
@@ -47,12 +48,10 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int delete(int no) {
-    try (Connection con = DBConnectionPool.getConnection();
+    try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "delete from boards where board_no=?")) {
-
       pstmt.setInt(1, no);
-
       return pstmt.executeUpdate();
 
     } catch (Exception e) {
@@ -62,7 +61,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-    try (Connection con = DBConnectionPool.getConnection();
+    try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "select board_no, title, writer, created_date"
                 + " from boards where category=? order by board_no desc")) {
@@ -92,7 +91,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public Board findBy(int no) {
-    try (Connection con = DBConnectionPool.getConnection();
+    try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "select * from boards where board_no=?")) {
 
@@ -111,7 +110,6 @@ public class BoardDaoImpl implements BoardDao {
         }
         return null;
       }
-
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }
@@ -119,7 +117,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int update(Board board) {
-    try (Connection con = DBConnectionPool.getConnection();
+    try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "update boards set title=?, content=?, writer=? where board_no=?")) {
 

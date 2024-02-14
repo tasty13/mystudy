@@ -34,7 +34,6 @@ public class ConnectionProxy implements Connection {
     try {
       original.close();
     } catch (Exception e) {
-      
     }
   }
 
@@ -45,7 +44,6 @@ public class ConnectionProxy implements Connection {
       connectionPool.returnConnection(this);
     }
   }
-
 
   @Override
   public Statement createStatement() throws SQLException {
@@ -68,13 +66,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setAutoCommit(boolean autoCommit) throws SQLException {
-    original.setAutoCommit(autoCommit);
+  public boolean getAutoCommit() throws SQLException {
+    return original.getAutoCommit();
   }
 
   @Override
-  public boolean getAutoCommit() throws SQLException {
-    return original.getAutoCommit();
+  public void setAutoCommit(boolean autoCommit) throws SQLException {
+    original.setAutoCommit(autoCommit);
   }
 
   @Override
@@ -87,6 +85,7 @@ public class ConnectionProxy implements Connection {
     original.rollback();
   }
 
+
   @Override
   public boolean isClosed() throws SQLException {
     return original.isClosed();
@@ -98,18 +97,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setReadOnly(boolean readOnly) throws SQLException {
-    original.setReadOnly(readOnly);
-  }
-
-  @Override
   public boolean isReadOnly() throws SQLException {
     return original.isReadOnly();
   }
 
   @Override
-  public void setCatalog(String catalog) throws SQLException {
-    original.setCatalog(catalog);
+  public void setReadOnly(boolean readOnly) throws SQLException {
+    original.setReadOnly(readOnly);
   }
 
   @Override
@@ -118,13 +112,18 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setTransactionIsolation(int level) throws SQLException {
-    original.setTransactionIsolation(level);
+  public void setCatalog(String catalog) throws SQLException {
+    original.setCatalog(catalog);
   }
 
   @Override
   public int getTransactionIsolation() throws SQLException {
     return original.getTransactionIsolation();
+  }
+
+  @Override
+  public void setTransactionIsolation(int level) throws SQLException {
+    original.setTransactionIsolation(level);
   }
 
   @Override
@@ -166,13 +165,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setHoldability(int holdability) throws SQLException {
-    original.setHoldability(holdability);
+  public int getHoldability() throws SQLException {
+    return original.getHoldability();
   }
 
   @Override
-  public int getHoldability() throws SQLException {
-    return original.getHoldability();
+  public void setHoldability(int holdability) throws SQLException {
+    original.setHoldability(holdability);
   }
 
   @Override
@@ -260,11 +259,6 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setClientInfo(Properties properties) throws SQLClientInfoException {
-    original.setClientInfo(properties);
-  }
-
-  @Override
   public String getClientInfo(String name) throws SQLException {
     return original.getClientInfo(name);
   }
@@ -272,6 +266,11 @@ public class ConnectionProxy implements Connection {
   @Override
   public Properties getClientInfo() throws SQLException {
     return original.getClientInfo();
+  }
+
+  @Override
+  public void setClientInfo(Properties properties) throws SQLClientInfoException {
+    original.setClientInfo(properties);
   }
 
   @Override
@@ -285,13 +284,13 @@ public class ConnectionProxy implements Connection {
   }
 
   @Override
-  public void setSchema(String schema) throws SQLException {
-    original.setSchema(schema);
+  public String getSchema() throws SQLException {
+    return original.getSchema();
   }
 
   @Override
-  public String getSchema() throws SQLException {
-    return original.getSchema();
+  public void setSchema(String schema) throws SQLException {
+    original.setSchema(schema);
   }
 
   @Override

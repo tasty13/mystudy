@@ -1,10 +1,8 @@
-
 package bitcamp.myapp.dao.mysql;
 
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.vo.AttachedFile;
-import bitcamp.myapp.vo.Board;
 import bitcamp.util.DBConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,9 +43,9 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
       for (AttachedFile file : files) {
         pstmt.setString(1, file.getFilePath());
         pstmt.setInt(2, file.getBoardNo());
-
         pstmt.executeUpdate();
       }
+
       return files.size();
 
     } catch (Exception e) {
@@ -60,7 +58,6 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "delete from board_files where file_no=?")) {
-
       pstmt.setInt(1, no);
       return pstmt.executeUpdate();
 
@@ -74,7 +71,6 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "delete from board_files where board_no=?")) {
-
       pstmt.setInt(1, boardNo);
       return pstmt.executeUpdate();
 
@@ -111,6 +107,4 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
       throw new DaoException("데이터 가져오기 오류", e);
     }
   }
-
-
 }
