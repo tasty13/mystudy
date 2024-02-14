@@ -9,20 +9,15 @@ import java.sql.Connection;
 
 public class MemberModifyHandler extends AbstractMenuHandler {
 
-  private DBConnectionPool connectionPool;
   private MemberDao memberDao;
 
-  public MemberModifyHandler(DBConnectionPool connectionPool, MemberDao memberDao) {
-    this.connectionPool = connectionPool;
+  public MemberModifyHandler(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
   @Override
   protected void action(Prompt prompt) {
-    Connection con = null;
     try {
-      con = connectionPool.getConnection();
-
       int no = prompt.inputInt("번호? ");
 
       Member old = memberDao.findBy(no);
@@ -43,9 +38,6 @@ public class MemberModifyHandler extends AbstractMenuHandler {
 
     } catch (Exception e) {
       prompt.println("변경 오류!");
-
-    } finally {
-      connectionPool.returnConnection(con);
     }
   }
 }
