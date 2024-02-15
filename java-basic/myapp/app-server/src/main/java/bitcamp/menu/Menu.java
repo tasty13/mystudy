@@ -12,4 +12,5 @@ public interface Menu {
   void execute(Prompt prompt) throws Exception;
 
   String getTitle();
+
 }

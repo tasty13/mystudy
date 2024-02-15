@@ -5,7 +5,9 @@ import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardModifyHandler extends AbstractMenuHandler {
@@ -23,9 +25,18 @@ public class BoardModifyHandler extends AbstractMenuHandler {
     try {
       int no = prompt.inputInt("번호? ");
 
+      Member loginUser = (Member) prompt.getSession().getAttribute("loginUser");
+      if (loginUser == null) {
+        prompt.println("로그인하시기 바랍니다.");
+        return;
+      }
+
       Board oldBoard = boardDao.findBy(no);
       if (oldBoard == null) {
         prompt.println("게시글 번호가 유효하지 않습니다.");
+        return;
+      } else if (oldBoard.getWriter().getNo() != loginUser.getNo()) {
+        prompt.println("게시글 변경 권한이 없습니다.");
         return;
       }
 
@@ -33,7 +44,6 @@ public class BoardModifyHandler extends AbstractMenuHandler {
       board.setNo(oldBoard.getNo()); // 기존 게시글의 번호를 그대로 설정한다.
       board.setTitle(prompt.input("제목(%s)? ", oldBoard.getTitle()));
       board.setContent(prompt.input("내용(%s)? ", oldBoard.getContent()));
-      board.setWriter(prompt.input("작성자(%s)? ", oldBoard.getWriter()));
       board.setCreatedDate(oldBoard.getCreatedDate());
 
       // 파일 추가/삭제/경로수정해야 함
@@ -42,6 +52,7 @@ public class BoardModifyHandler extends AbstractMenuHandler {
       // 추가-> path 받아서 추가
       // 삭제-> 번호 받아서 삭제
       prompt.println("첨부파일 수정");
+//      List<AttachedFile> list = new ArrayList<>();
 
       String num = "1";
       while (num != "0") {
@@ -65,6 +76,7 @@ public class BoardModifyHandler extends AbstractMenuHandler {
             break;
           case "3":
             prompt.println("-----------------------------");
+            prompt.println("첨부파일: ");
             List<AttachedFile> list = attachedFileDao.findAllByBoardNo(board.getNo());
             prompt.printf("%-4s\t%s\n", "No", "filepath");
             for (AttachedFile f : list) {
