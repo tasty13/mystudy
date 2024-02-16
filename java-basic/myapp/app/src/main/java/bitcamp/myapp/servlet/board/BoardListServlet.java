@@ -32,7 +32,7 @@ public class BoardListServlet extends GenericServlet {
     PrintWriter out = servletResponse.getWriter();
 
     out.println("<!DOCTYPE html>");
-    out.println("<html lang='en'>\n");
+    out.println("<html lang='en'>");
     out.println("<head>");
     out.println("  <meta charset='UTF-8'>");
     out.println("  <title>비트캠프 데브옵스 5기</title>");
@@ -44,10 +44,10 @@ public class BoardListServlet extends GenericServlet {
 
     try {
       out.println("<table border='1'>");
-      out.println("   <thead>");
-      out.println("   <tr> <th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th> <th>첨부파일</th> </tr>");
-      out.println("   </thead>");
-      out.println("   <tbody>");
+      out.println("    <thead>");
+      out.println("    <tr> <th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th> <th>첨부파일</th> </tr>");
+      out.println("    </thead>");
+      out.println("    <tbody>");
 
       List<Board> list = boardDao.findAll();
 
@@ -60,7 +60,7 @@ public class BoardListServlet extends GenericServlet {
             board.getFileCount());
       }
 
-      out.println("   </tbody>");
+      out.println("    </tbody>");
       out.println("</table>");
 
     } catch (Exception e) {
@@ -68,7 +68,6 @@ public class BoardListServlet extends GenericServlet {
       out.println("<pre>");
       e.printStackTrace(out);
       out.println("</pre>");
-
     }
 
     out.println("</body>");

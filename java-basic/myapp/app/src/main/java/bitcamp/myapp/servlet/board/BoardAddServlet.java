@@ -1,6 +1,5 @@
 package bitcamp.myapp.servlet.board;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.mysql.AttachedFileDaoImpl;
@@ -9,15 +8,11 @@ import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
 import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,25 +25,23 @@ public class BoardAddServlet extends HttpServlet {
   private BoardDao boardDao;
   private AttachedFileDao attachedFileDao;
 
-  public BoardAddServlet(TransactionManager txManager, BoardDao boardDao,
-      AttachedFileDao attachedFileDao) {
-
+  public BoardAddServlet() {
     DBConnectionPool connectionPool = new DBConnectionPool(
         "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
+    txManager = new TransactionManager(connectionPool);
     this.boardDao = new BoardDaoImpl(connectionPool, 1);
     this.attachedFileDao = new AttachedFileDaoImpl(connectionPool);
-
   }
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response)
+  protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
     out.println("<!DOCTYPE html>");
-    out.println("<html lang='en'>\n");
+    out.println("<html lang='en'>");
     out.println("<head>");
     out.println("  <meta charset='UTF-8'>");
     out.println("  <title>비트캠프 데브옵스 5기</title>");
@@ -74,8 +67,9 @@ public class BoardAddServlet extends HttpServlet {
     if (files != null) {
       for (String file : files) {
         if (file.length() == 0) {
-          attachedFiles.add(new AttachedFile().filePath(file));
+          continue;
         }
+        attachedFiles.add(new AttachedFile().filePath(file));
       }
     }
 

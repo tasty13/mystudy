@@ -14,13 +14,14 @@ public class LogoutServlet extends HttpServlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     request.getSession().invalidate();
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
     out.println("<!DOCTYPE html>");
-    out.println("<html lang='en'>\n");
+    out.println("<html lang='en'>");
     out.println("<head>");
     out.println("  <meta charset='UTF-8'>");
     out.println("  <title>비트캠프 데브옵스 5기</title>");
@@ -28,7 +29,9 @@ public class LogoutServlet extends HttpServlet {
     out.println("<body>");
     out.println("<h1>과제 관리 시스템</h1>");
     out.println("<h2>로그아웃</h2>");
+    out.println("<p>로그아웃 했습니다!</p>");
 
-    out.println("로그아웃 했습니다!");
+    out.println("</body>");
+    out.println("</html>");
   }
 }
