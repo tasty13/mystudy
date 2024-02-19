@@ -1,14 +1,11 @@
 package bitcamp.myapp.servlet.member;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,13 +44,15 @@ public class MemberAddServlet extends HttpServlet {
       member.setEmail(request.getParameter("email"));
       member.setName(request.getParameter("name"));
       member.setPassword(request.getParameter("password"));
-      member.setCreatedDate(new Date());
 
       memberDao.add(member);
-      out.println("<p>게시글을 등록했습니다.</p>");
+      out.println("<p>회원을 등록했습니다.</p>");
 
     } catch (Exception e) {
-      out.println("<p>회원 등록 오류!</p>");
+      out.println("<p>회원등록 오류!</p>");
+      out.println("<pre>");
+      e.printStackTrace(out);
+      out.println("</pre>");
     }
 
     out.println("</body>");

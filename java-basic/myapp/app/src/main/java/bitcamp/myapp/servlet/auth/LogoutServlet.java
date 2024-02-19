@@ -30,7 +30,6 @@ public class LogoutServlet extends HttpServlet {
     out.println("<h1>과제 관리 시스템</h1>");
     out.println("<h2>로그아웃</h2>");
     out.println("<p>로그아웃 했습니다!</p>");
-
     out.println("</body>");
     out.println("</html>");
   }

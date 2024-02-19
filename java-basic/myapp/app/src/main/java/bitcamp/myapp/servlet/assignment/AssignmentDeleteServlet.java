@@ -1,11 +1,8 @@
 package bitcamp.myapp.servlet.assignment;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
-import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -46,16 +43,9 @@ public class AssignmentDeleteServlet extends HttpServlet {
 
       if (assignmentDao.delete(no) == 0) {
         out.println("<p>과제 번호가 유효하지 않습니다.</p>");
-        out.println("</body>");
-        out.println("</html>");
-        return;
       } else {
         out.println("<p>과제를 삭제했습니다.</p>");
       }
-
-      out.println("<script>");
-      out.println("   location.href = '/assignment/list'");
-      out.println("</script>");
 
     } catch (Exception e) {
       out.println("<p>삭제 오류!</p>");

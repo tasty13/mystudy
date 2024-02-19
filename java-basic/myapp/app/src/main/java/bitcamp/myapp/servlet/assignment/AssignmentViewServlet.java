@@ -1,10 +1,9 @@
 package bitcamp.myapp.servlet.assignment;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.AssignmentDao;
+import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.Prompt;
+import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +17,10 @@ public class AssignmentViewServlet extends HttpServlet {
 
   private AssignmentDao assignmentDao;
 
-  public AssignmentViewServlet(AssignmentDao assignmentDao) {
-    this.assignmentDao = assignmentDao;
+  public AssignmentViewServlet() {
+    DBConnectionPool connectionPool = new DBConnectionPool(
+        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
+    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
   }
 
   @Override
@@ -60,11 +61,12 @@ public class AssignmentViewServlet extends HttpServlet {
       out.printf("  내용: <textarea name='content'>%s</textarea>\n", assignment.getContent());
       out.println("</div>");
       out.println("<div>");
-      out.printf("  제출 마감일: <textarea name='deadline'>%s</textarea>\n", assignment.getDeadline());
+      out.printf("  제출마감일: <input name='deadline' type='text' value='%s'>\n",
+          assignment.getDeadline());
       out.println("</div>");
       out.println("<div>");
       out.println("  <button>변경</button>");
-      out.printf("<a href='/assignment/delete?no=%d'>[삭제]</a>\n", no);
+      out.printf("   <a href='/assignment/delete?no=%d'>[삭제]</a>\n", no);
       out.println("</div>");
       out.println("</form>");
 

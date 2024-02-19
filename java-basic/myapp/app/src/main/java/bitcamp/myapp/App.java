@@ -121,8 +121,8 @@ public class App {
           "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
       txManager = new TransactionManager(connectionPool);
 
-      boardDao = new BoardDaoImpl(connectionPool, 1);
-      greetingDao = new BoardDaoImpl(connectionPool, 2);
+      boardDao = new BoardDaoImpl(connectionPool);
+      greetingDao = new BoardDaoImpl(connectionPool);
       assignmentDao = new AssignmentDaoImpl(connectionPool);
       memberDao = new MemberDaoImpl(connectionPool);
       attachedFileDao = new AttachedFileDaoImpl(connectionPool);

@@ -3,7 +3,6 @@ package bitcamp.myapp.servlet.assignment;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,19 +52,23 @@ public class AssignmentUpdateServlet extends HttpServlet {
       }
 
       Assignment assignment = new Assignment();
+      assignment.setNo(old.getNo());
       assignment.setTitle(request.getParameter("title"));
       assignment.setContent(request.getParameter("content"));
       assignment.setDeadline(Date.valueOf(request.getParameter("deadline")));
 
       assignmentDao.update(assignment);
-
       out.println("<p>과제를 변경했습니다.</p>");
 
     } catch (Exception e) {
-      out.println("<p>과제 등록 오류!</p>");
+      out.println("<p>과제 변경 오류!</p>");
+      out.println("<pre>");
+      e.printStackTrace(out);
+      out.println("</pre>");
     }
 
     out.println("</body>");
     out.println("</html>");
+
   }
 }

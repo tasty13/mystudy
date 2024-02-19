@@ -1,11 +1,9 @@
 package bitcamp.myapp.servlet.member;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,6 +26,7 @@ public class MemberViewServlet extends HttpServlet {
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
@@ -38,7 +37,7 @@ public class MemberViewServlet extends HttpServlet {
     out.println("  <title>비트캠프 데브옵스 5기</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글</h1>");
+    out.println("<h1>회원</h1>");
 
     try {
       int no = Integer.parseInt(request.getParameter("no"));
@@ -59,15 +58,17 @@ public class MemberViewServlet extends HttpServlet {
       out.printf("  이메일: <input name='email' type='text' value='%s'>\n", member.getEmail());
       out.println("</div>");
       out.println("<div>");
-      out.printf("  이름: <input name='email' type='text' value='%s'>\n", member.getName());
+      out.printf("  이름: <input name='name' type='text' value='%s'>\n", member.getName());
       out.println("</div>");
       out.println("<div>");
-      out.printf("  가입일: %1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS\n", member.getCreatedDate());
+      out.println("  암호: <input name='password' type='password'>");
       out.println("</div>");
+      out.println("<div>");
+      out.printf("  가입일: <input readonly type='text' value='%s'>\n", member.getCreatedDate());
       out.println("</div>");
       out.println("<div>");
       out.println("  <button>변경</button>");
-      out.printf("<a href='/member/delete?no=%d'>[삭제]</a>\n", no);
+      out.printf("  <a href='/member/delete?no=%d'>[삭제]</a>\n", no);
       out.println("</div>");
       out.println("</form>");
 

@@ -1,11 +1,9 @@
 package bitcamp.myapp.servlet.member;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -55,7 +53,7 @@ public class MemberListServlet extends HttpServlet {
 
       for (Member member : list) {
         out.printf(
-            "<tr> <td>%d</td> <td><a href='/member/view?no=%1$d'>%s</a></td> <td>%s</td> <td>%s</td></tr>\n",
+            "<tr> <td>%d</td> <td><a href='/member/view?no=%1$d'>%s</a></td> <td>%s</td> <td>%s</td> </tr>\n",
             member.getNo(),
             member.getName(),
             member.getEmail(),

@@ -1,12 +1,9 @@
 package bitcamp.myapp.servlet.assignment;
 
-import bitcamp.menu.AbstractMenuHandler;
 import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -48,7 +45,7 @@ public class AssignmentListServlet extends HttpServlet {
     try {
       out.println("<table border='1'>");
       out.println("    <thead>");
-      out.println("    <tr> <th>번호</th> <th>과제</th> <th>제출마감일</th></tr>");
+      out.println("    <tr> <th>번호</th> <th>과제</th> <th>제출마감일</th> </tr>");
       out.println("    </thead>");
       out.println("    <tbody>");
 
@@ -56,11 +53,12 @@ public class AssignmentListServlet extends HttpServlet {
 
       for (Assignment assignment : list) {
         out.printf(
-            "<tr> <td>%d</td> <td><a href='/assignment/view?no=%1$d'>%s</a></td> <td>%s</td>\n",
+            "<tr> <td>%d</td> <td><a href='/assignment/view?no=%1$d'>%s</a></td> <td>%s</td> </tr>\n",
             assignment.getNo(),
             assignment.getTitle(),
             assignment.getDeadline());
       }
+
       out.println("    </tbody>");
       out.println("</table>");
 

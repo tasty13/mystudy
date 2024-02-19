@@ -4,8 +4,6 @@ import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.mysql.MemberDaoImpl;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DBConnectionPool;
-import bitcamp.util.Prompt;
-import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -44,22 +42,29 @@ public class MemberUpdateServlet extends HttpServlet {
     try {
       int no = Integer.parseInt(request.getParameter("no"));
 
-      Member member = memberDao.findBy(no);
-      if (member == null) {
+      Member old = memberDao.findBy(no);
+      if (old == null) {
         out.println("<p>회원 번호가 유효하지 않습니다.</p>");
         out.println("</body>");
         out.println("</html>");
         return;
       }
 
+      Member member = new Member();
+      member.setNo(old.getNo());
       member.setEmail(request.getParameter("email"));
       member.setName(request.getParameter("name"));
       member.setPassword(request.getParameter("password"));
+      member.setCreatedDate(old.getCreatedDate());
 
-      out.println("<p>회원 정보를 변경했습니다.</p>");
+      memberDao.update(member);
+      out.println("<p>회원을 변경했습니다.</p>");
 
     } catch (Exception e) {
-      out.println("<p>회원 등록 오류!</p>");
+      out.println("<p>회원 변경 오류!</p>");
+      out.println("<pre>");
+      e.printStackTrace(out);
+      out.println("</pre>");
     }
 
     out.println("</body>");

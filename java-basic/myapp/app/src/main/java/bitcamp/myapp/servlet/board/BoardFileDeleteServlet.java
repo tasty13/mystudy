@@ -24,13 +24,16 @@ public class BoardFileDeleteServlet extends HttpServlet {
   public BoardFileDeleteServlet() {
     DBConnectionPool connectionPool = new DBConnectionPool(
         "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.boardDao = new BoardDaoImpl(connectionPool, 1);
+    this.boardDao = new BoardDaoImpl(connectionPool);
     this.attachedFileDao = new AttachedFileDaoImpl(connectionPool);
   }
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
+    int category = Integer.parseInt(request.getParameter("category"));
+    String title = category == 1 ? "게시글" : "가입인사";
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -42,11 +45,11 @@ public class BoardFileDeleteServlet extends HttpServlet {
     out.println("  <title>비트캠프 데브옵스 5기</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글</h1>");
+    out.printf("<h1>%s</h1>", title);
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
-      out.println("<p>로그인하시기 바랍니다.</p>");
+      out.println("<p>로그인하시기 바랍니다!</p>");
       out.println("</body>");
       out.println("</html>");
       return;
@@ -64,7 +67,6 @@ public class BoardFileDeleteServlet extends HttpServlet {
       }
 
       Member writer = boardDao.findBy(file.getBoardNo()).getWriter();
-
       if (writer.getNo() != loginUser.getNo()) {
         out.println("<p>권한이 없습니다.</p>");
         out.println("</body>");
@@ -73,10 +75,10 @@ public class BoardFileDeleteServlet extends HttpServlet {
       }
 
       attachedFileDao.delete(fileNo);
-
       out.println("<script>");
-      out.println("   location.href = document.referrer;");
+      out.println("  location.href = document.referrer;");
       out.println("</script>");
+//      out.println("<p>첨부파일을 삭제했습니다!</p>");
 
     } catch (Exception e) {
       out.println("<p>삭제 오류!</p>");

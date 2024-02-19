@@ -29,9 +29,9 @@ public class LoginServlet extends GenericServlet {
   public void service(ServletRequest servletRequest, ServletResponse servletResponse)
       throws ServletException, IOException {
 
-    // 서블릿 컨테이너가 service() 호출할 때 넘겨주는 값-> HttpservletRequest, HttpServletResponse
-    // 파라미터로 넘어 온 객체를 제대로 사용하고 싶다면 원래 타입으로 형변환하기.
-
+    // 서블릿 컨테이너가 service()를 호출할 때 넘겨주는 값을
+    // HttpServletRequest와 HttpServletResponse이다.
+    // 파라미터로 넘어 온 객체를 제대로 사용하고 싶다면 원래 타입으로 형변환하라!
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     HttpServletResponse response = (HttpServletResponse) servletResponse;
 
