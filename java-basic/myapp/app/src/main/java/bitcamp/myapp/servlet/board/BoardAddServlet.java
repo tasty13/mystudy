@@ -25,19 +25,19 @@ public class BoardAddServlet extends HttpServlet {
   private BoardDao boardDao;
   private AttachedFileDao attachedFileDao;
 
-  public BoardAddServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    txManager = new TransactionManager(connectionPool);
-    this.boardDao = new BoardDaoImpl(connectionPool);
-    this.attachedFileDao = new AttachedFileDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    txManager = (TransactionManager) this.getServletContext().getAttribute("txManager");
+    this.boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    this.attachedFileDao = (AttachedFileDao) this.getServletContext()
+        .getAttribute("attachedFileDao");
   }
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    int category = Integer.parseInt(request.getParameter("category"));
+    int category = Integer.valueOf(request.getParameter("category"));
     String title = category == 1 ? "게시글" : "가입인사";
 
     response.setContentType("text/html;charset=UTF-8");
@@ -50,7 +50,7 @@ public class BoardAddServlet extends HttpServlet {
     out.println("  <title>비트캠프 데브옵스 5기</title>");
     out.println("</head>");
     out.println("<body>");
-    out.printf("<h1>%s</h1>", title);
+    out.printf("<h1>%s</h1>\n", title);
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {

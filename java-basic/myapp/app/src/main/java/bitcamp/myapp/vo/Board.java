@@ -9,7 +9,6 @@ public class Board implements Serializable {
   private static final long serialVersionUID = 100L;
 
   private int category;
-
   private int no;
   private String title;
   private String content;
@@ -30,6 +29,14 @@ public class Board implements Serializable {
         ", files=" + files +
         ", fileCount=" + fileCount +
         '}';
+  }
+
+  public int getCategory() {
+    return category;
+  }
+
+  public void setCategory(int category) {
+    this.category = category;
   }
 
   public Member getWriter() {
@@ -54,14 +61,6 @@ public class Board implements Serializable {
 
   public void setNo(int no) {
     this.no = no;
-  }
-
-  public int getCategory() {
-    return category;
-  }
-
-  public void setCategory(int category) {
-    this.category = category;
   }
 
   public String getTitle() {

@@ -51,7 +51,7 @@ public class MemberDaoImpl implements MemberDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "select member_no, email, name, created_date from members");
-        ResultSet rs = pstmt.executeQuery();) {
+        ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Member> list = new ArrayList<>();
 
@@ -97,9 +97,15 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int update(Member member) {
+    String sql = null;
+    if (member.getPassword().length() == 0) {
+      sql = "update members set email=?, name=? where member_no=?";
+    } else {
+      sql = "update members set email=?, name=?, password=sha2(?,256) where member_no=?";
+    }
+
     try (Connection con = connectionPool.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(
-            "update members set email=?, name=?, password=sha2(?,256) where member_no=?")) {
+        PreparedStatement pstmt = con.prepareStatement(sql)) {
       pstmt.setString(1, member.getEmail());
       pstmt.setString(2, member.getName());
       pstmt.setString(3, member.getPassword());

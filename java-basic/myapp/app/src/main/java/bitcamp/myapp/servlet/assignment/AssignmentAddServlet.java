@@ -7,6 +7,8 @@ import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +20,9 @@ public class AssignmentAddServlet extends HttpServlet {
 
   private AssignmentDao assignmentDao;
 
-
-  public AssignmentAddServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    this.assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override

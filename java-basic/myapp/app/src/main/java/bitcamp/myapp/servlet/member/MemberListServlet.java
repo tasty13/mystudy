@@ -18,10 +18,9 @@ public class MemberListServlet extends HttpServlet {
 
   private MemberDao memberDao;
 
-  public MemberListServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.memberDao = new MemberDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
   }
 
   @Override

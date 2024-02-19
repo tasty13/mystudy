@@ -112,10 +112,9 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
   public AttachedFile findByNo(int no) {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-            "select file_no, file_path, board_no from board_files where file_no=?")) {
-
+            "select file_no, file_path, board_no"
+                + " from board_files where file_no=?")) {
       pstmt.setInt(1, no);
-
       try (ResultSet rs = pstmt.executeQuery()) {
         if (rs.next()) {
           AttachedFile file = new AttachedFile();
@@ -126,7 +125,6 @@ public class AttachedFileDaoImpl implements AttachedFileDao {
         }
         return null;
       }
-
     } catch (Exception e) {
       throw new DaoException("데이터 가져오기 오류", e);
     }

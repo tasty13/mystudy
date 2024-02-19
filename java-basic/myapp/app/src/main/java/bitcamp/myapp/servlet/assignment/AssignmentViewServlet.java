@@ -17,10 +17,9 @@ public class AssignmentViewServlet extends HttpServlet {
 
   private AssignmentDao assignmentDao;
 
-  public AssignmentViewServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    this.assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override
@@ -44,7 +43,7 @@ public class AssignmentViewServlet extends HttpServlet {
 
       Assignment assignment = assignmentDao.findBy(no);
       if (assignment == null) {
-        out.println("<p>과제 번호가 유효하지 않습니다!</p>");
+        out.println("<p>과제 번호가 유효하지 않습니다.</p>");
         out.println("</body>");
         out.println("</html>");
         return;
@@ -61,12 +60,12 @@ public class AssignmentViewServlet extends HttpServlet {
       out.printf("  내용: <textarea name='content'>%s</textarea>\n", assignment.getContent());
       out.println("</div>");
       out.println("<div>");
-      out.printf("  제출마감일: <input name='deadline' type='text' value='%s'>\n",
+      out.printf("  제출마감일: <input name='deadline' type='date' value='%s'>\n",
           assignment.getDeadline());
       out.println("</div>");
       out.println("<div>");
       out.println("  <button>변경</button>");
-      out.printf("   <a href='/assignment/delete?no=%d'>[삭제]</a>\n", no);
+      out.printf("  <a href='/assignment/delete?no=%d'>[삭제]</a>\n", no);
       out.println("</div>");
       out.println("</form>");
 
@@ -80,4 +79,5 @@ public class AssignmentViewServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
 }

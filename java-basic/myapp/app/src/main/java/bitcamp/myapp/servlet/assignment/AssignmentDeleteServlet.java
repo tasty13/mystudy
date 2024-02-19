@@ -16,10 +16,9 @@ public class AssignmentDeleteServlet extends HttpServlet {
 
   private AssignmentDao assignmentDao;
 
-  public AssignmentDeleteServlet() {
-    DBConnectionPool connectionPool = new DBConnectionPool(
-        "jdbc:mysql://localhost/studydb", "study", "Bitcamp!@#123");
-    this.assignmentDao = new AssignmentDaoImpl(connectionPool);
+  @Override
+  public void init() {
+    this.assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override
