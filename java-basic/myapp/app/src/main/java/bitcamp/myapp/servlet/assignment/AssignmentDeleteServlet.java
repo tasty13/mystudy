@@ -1,8 +1,6 @@
 package bitcamp.myapp.servlet.assignment;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +16,7 @@ public class AssignmentDeleteServlet extends HttpServlet {
 
   @Override
   public void init() {
-    this.assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
+    assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override

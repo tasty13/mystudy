@@ -2,12 +2,9 @@ package bitcamp.myapp.servlet.board;
 
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.mysql.AttachedFileDaoImpl;
-import bitcamp.myapp.dao.mysql.BoardDaoImpl;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
 import bitcamp.util.TransactionManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,7 +30,6 @@ public class BoardUpdateServlet extends HttpServlet {
         .getAttribute("attachedFileDao");
   }
 
-
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -55,7 +51,7 @@ public class BoardUpdateServlet extends HttpServlet {
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
-      out.println("<p>로그인하시기 바랍니다.</p>");
+      out.println("<p>로그인하시기 바랍니다!</p>");
       out.println("</body>");
       out.println("</html>");
       return;

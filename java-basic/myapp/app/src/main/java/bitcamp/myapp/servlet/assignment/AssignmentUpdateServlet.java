@@ -1,9 +1,7 @@
 package bitcamp.myapp.servlet.assignment;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.dao.mysql.AssignmentDaoImpl;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.util.DBConnectionPool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -20,7 +18,7 @@ public class AssignmentUpdateServlet extends HttpServlet {
 
   @Override
   public void init() {
-    this.assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
+    assignmentDao = (AssignmentDao) this.getServletContext().getAttribute("assignmentDao");
   }
 
   @Override

@@ -51,7 +51,7 @@ public class MemberDaoImpl implements MemberDao {
     try (Connection con = connectionPool.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
             "select member_no, email, name, created_date from members");
-        ResultSet rs = pstmt.executeQuery()) {
+        ResultSet rs = pstmt.executeQuery();) {
 
       ArrayList<Member> list = new ArrayList<>();
 
