@@ -55,7 +55,7 @@ public class MemberUpdateServlet extends HttpServlet {
       member.setCreatedDate(old.getCreatedDate());
 
       memberDao.update(member);
-      response.sendRedirect("/member/list");
+      response.sendRedirect("list");
       return;
 
     } catch (Exception e) {
