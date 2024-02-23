@@ -44,6 +44,8 @@ public class MemberAddServlet extends HttpServlet {
 
       memberDao.add(member);
       out.println("<p>회원을 등록했습니다.</p>");
+      response.sendRedirect("/member/list");
+      return;
 
     } catch (Exception e) {
       out.println("<p>회원등록 오류!</p>");
