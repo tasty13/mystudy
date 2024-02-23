@@ -17,4 +17,6 @@ public class HelloServlet2 extends GenericServlet {
       throws ServletException, IOException {
     System.out.println("Hello2!");
   }
+
 }
+
