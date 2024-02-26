@@ -1,6 +1,5 @@
-package bitcamp.myapp.servlet.member;
+package bitcamp.myapp.servlet;
 
-import bitcamp.myapp.dao.MemberDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,18 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet {
-
-  private MemberDao memberDao;
+@WebServlet("/error")
+public class ErrorServlet extends HttpServlet {
 
   @Override
-  public void init() {
-    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-  }
-
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -36,23 +28,17 @@ public class MemberDeleteServlet extends HttpServlet {
 
     request.getRequestDispatcher("/header").include(request, response);
 
-    out.println("<h1>회원</h1>");
+    out.println("<h1>오류!</h1>");
+    
+    String message = (String) request.getAttribute("message");
+    if (message != null) {
+      out.printf("<p>%s</p>\n", message);
+    }
 
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-
-      if (memberDao.delete(no) == -1) {
-        out.println("<p>회원 번호가 유효하지 않습니다.</p>");
-        response.setHeader("Refresh", "1;url=list");
-      } else {
-        response.sendRedirect("list");
-        return;
-      }
-
-    } catch (Exception e) {
-      out.println("<p>삭제 오류!</p>");
+    Throwable exception = (Throwable) request.getAttribute("exception");
+    if (exception != null) {
       out.println("<pre>");
-      e.printStackTrace(out);
+      exception.printStackTrace(out);
       out.println("</pre>");
     }
 
