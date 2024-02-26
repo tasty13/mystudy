@@ -47,6 +47,8 @@ public class BoardAddServlet extends HttpServlet {
     out.println("  <title>비트캠프 데브옵스 5기</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
     out.printf("<h1>%s</h1>\n", title);
 
     out.printf("<form action='/board/add?category=%d' method='post'>\n", category);
@@ -69,6 +71,7 @@ public class BoardAddServlet extends HttpServlet {
     out.println("</div>");
     out.println("</form>");
 
+    request.getRequestDispatcher("/footer").include(request, response);
     out.println("</body>");
     out.println("</html>");
   }
@@ -136,7 +139,7 @@ public class BoardAddServlet extends HttpServlet {
 
       response.sendRedirect("/board/list?category=" + category);
       return;
-      
+
     } catch (Exception e) {
       try {
         txManager.rollback();
