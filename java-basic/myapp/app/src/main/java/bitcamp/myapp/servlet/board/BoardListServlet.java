@@ -25,7 +25,13 @@ public class BoardListServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    String title = "";
     try {
+      int category = Integer.valueOf(request.getParameter("category"));
+      title = category == 1 ? "게시글" : "가입인사";
+
+      List<Board> list = boardDao.findAll(category);
+
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
 
@@ -39,8 +45,6 @@ public class BoardListServlet extends HttpServlet {
 
       request.getRequestDispatcher("/header").include(request, response);
 
-      int category = Integer.valueOf(request.getParameter("category"));
-      String title = category == 1 ? "게시글" : "가입인사";
       out.printf("<h1>%s</h1>\n", title);
       out.printf("<a href='/board/add?category=%d'>새 글</a>\n", category);
 
@@ -49,8 +53,6 @@ public class BoardListServlet extends HttpServlet {
       out.println("    <tr> <th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th> <th>첨부파일</th> </tr>");
       out.println("    </thead>");
       out.println("    <tbody>");
-
-      List<Board> list = boardDao.findAll(category);
 
       for (Board board : list) {
         out.printf(
@@ -72,8 +74,8 @@ public class BoardListServlet extends HttpServlet {
       out.println("</html>");
 
     } catch (Exception e) {
-      request.setAttribute("message", "목록 오류!");
-      request.setAttribute("exception", "e");
+      request.setAttribute("message", String.format("%s 목록 오류!", title));
+      request.setAttribute("exception", e);
       request.getRequestDispatcher("/error").forward(request, response);
     }
   }

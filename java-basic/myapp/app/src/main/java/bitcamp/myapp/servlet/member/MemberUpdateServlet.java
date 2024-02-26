@@ -4,53 +4,38 @@ import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/member/update")
 public class MemberUpdateServlet extends HttpServlet {
 
   private MemberDao memberDao;
+  private String uploadDir;
 
   @Override
   public void init() {
     this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+    uploadDir = this.getServletContext().getRealPath("/upload");
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html lang='en'>");
-    out.println("<head>");
-    out.println("  <meta charset='UTF-8'>");
-    out.println("  <title>비트캠프 데브옵스 5기</title>");
-    out.println("</head>");
-    out.println("<body>");
-
-    request.getRequestDispatcher("/header").include(request, response);
-
-    out.println("<h1>회원</h1>");
-
     try {
+      request.setCharacterEncoding("UTF-8");
       int no = Integer.parseInt(request.getParameter("no"));
 
       Member old = memberDao.findBy(no);
       if (old == null) {
-        out.println("<p>회원 번호가 유효하지 않습니다.</p>");
-
-        request.getRequestDispatcher("/footer").include(request, response);
-
-        out.println("</body>");
-        out.println("</html>");
-        return;
+        throw new Exception("회원 번호가 유효하지 않습니다.");
       }
 
       Member member = new Member();
@@ -58,22 +43,25 @@ public class MemberUpdateServlet extends HttpServlet {
       member.setEmail(request.getParameter("email"));
       member.setName(request.getParameter("name"));
       member.setPassword(request.getParameter("password"));
+
+      Part photoPart = request.getPart("photo");
+      if (photoPart.getSize() > 0) {
+        String filename = UUID.randomUUID().toString();
+        member.setPhoto(filename);
+        photoPart.write(this.uploadDir + "/" + filename);
+      } else {
+        member.setPhoto(old.getPhoto());
+      }
+
       member.setCreatedDate(old.getCreatedDate());
 
       memberDao.update(member);
       response.sendRedirect("list");
-      return;
 
     } catch (Exception e) {
-      out.println("<p>회원 변경 오류!</p>");
-      out.println("<pre>");
-      e.printStackTrace(out);
-      out.println("</pre>");
+      request.setAttribute("message", "변경 오류!");
+      request.setAttribute("exception", "e");
+      request.getRequestDispatcher("/error").forward(request, response);
     }
-
-    request.getRequestDispatcher("/footer").include(request, response);
-
-    out.println("</body>");
-    out.println("</html>");
   }
 }
