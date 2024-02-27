@@ -1,23 +1,26 @@
 package algorithm.test.baekjoon.level10.exam03;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
   public static void main(String[] args) throws Exception {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    Set<Integer> set = new HashSet<Integer>();
-    for (int i = 0; i < 3; i++) {
-      StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-      set.add(Integer.parseInt(st.nextToken()));
-      set.add(Integer.parseInt(st.nextToken()));
+    List<Integer> list = new ArrayList<Integer>();
+    for (int i = 0; i < 6; i++) {
+      list.add(getNum());
     }
 
-    for (int i : set) {
-      System.out.printf("%d ", i);
+
+  }
+
+  private static Integer getNum() throws Exception {
+    int c, n = System.in.read() & 15;
+    while ((c = System.in.read()) > 32) {
+      n = n << 3 + n << 1 + c & 15;
     }
+    if (c == 13) {
+      System.in.read();
+    }
+    return n;
   }
 }
