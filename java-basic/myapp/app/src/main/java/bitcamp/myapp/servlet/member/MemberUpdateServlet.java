@@ -30,7 +30,6 @@ public class MemberUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      request.setCharacterEncoding("UTF-8");
       int no = Integer.parseInt(request.getParameter("no"));
 
       Member old = memberDao.findBy(no);
@@ -61,7 +60,7 @@ public class MemberUpdateServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("message", "변경 오류!");
       request.setAttribute("exception", "e");
-      request.getRequestDispatcher("/error").forward(request, response);
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }
