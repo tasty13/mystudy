@@ -48,7 +48,7 @@ public class BoardViewServlet extends HttpServlet {
 
       request.setAttribute("board", board);
       request.setAttribute("files", attachedFileDao.findAllByBoardNo(no));
-      request.getRequestDispatcher("/board/view.jsp").include(request, response);
+      request.getRequestDispatcher("/board/view.jsp").forward(request, response);
 
     } catch (Exception e) {
       request.setAttribute("message", String.format("%s 조회 오류!", title));

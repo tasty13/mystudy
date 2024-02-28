@@ -27,7 +27,7 @@ public class AssignmentListServlet extends HttpServlet {
 
     try {
       request.setAttribute("list", assignmentDao.findAll());
-      request.getRequestDispatcher("/assignment/list.jsp").include(request, response);
+      request.getRequestDispatcher("/assignment/list.jsp").forward(request, response);
 
     } catch (Exception e) {
       request.setAttribute("message", "목록 오류!");
