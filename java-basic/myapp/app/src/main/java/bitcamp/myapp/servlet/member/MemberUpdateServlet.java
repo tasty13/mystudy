@@ -2,6 +2,7 @@ package bitcamp.myapp.servlet.member;
 
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
@@ -48,6 +49,7 @@ public class MemberUpdateServlet extends HttpServlet {
         String filename = UUID.randomUUID().toString();
         member.setPhoto(filename);
         photoPart.write(this.uploadDir + "/" + filename);
+        new File(this.uploadDir + "/" + old.getPhoto()).delete();
       } else {
         member.setPhoto(old.getPhoto());
       }

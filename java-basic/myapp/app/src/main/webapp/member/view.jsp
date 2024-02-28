@@ -10,36 +10,44 @@
 <body>
 
 <jsp:include page="/header.jsp"></jsp:include>
+<%
+  Member member = (Member) request.getAttribute("member");
+%>
 
-out.println("<h1>회원</h1>");
-
-      out.println("<form action='/member/update' method='post' enctype='multipart/form-data'>");
-
-      out.println("<div>");
-      out.printf(
-          "  사진: <a href='%s'><img src='%1$s' height='80px'></a><br> <input name='photo' type='file'>\n",
-          member.getPhoto() != null ? "/upload/" + member.getPhoto() : "/img/default-photo.jpg");
-      out.println("</div>");
-      out.println("<div>");
-      out.printf("  번호: <input readonly name='no' type='text' value='%d'>\n", member.getNo());
-      out.println("</div>");
-      out.println("<div>");
-      out.printf("  이메일: <input name='email' type='text' value='%s'>\n", member.getEmail());
-      out.println("</div>");
-      out.println("<div>");
-      out.printf("  이름: <input name='name' type='text' value='%s'>\n", member.getName());
-      out.println("</div>");
-      out.println("<div>");
-      out.println("  암호: <input name='password' type='password'>");
-      out.println("</div>");
-      out.println("<div>");
-      out.printf("  가입일: <input readonly type='text' value='%s'>\n", member.getCreatedDate());
-      out.println("</div>");
-      out.println("<div>");
-      out.println("  <button>변경</button>");
-      out.printf("  <a href='/member/delete?no=%d'>[삭제]</a>\n", no);
-      out.println("</div>");
-      out.println("</form>");
+<h1>회원</h1>
+<form action='/member/update' method='post' enctype='multipart/form-data'>
+<div>
+<%
+   String photoUrl = null;
+   if (member.getPhoto() != null){
+    photoUrl = "/upload/" + member.getPhoto();
+   } else {
+    photoUrl = "/img/default-photo.jpg";
+   }
+%>
+   사진: <a href='<%=photoUrl%>'> <img src='<%=photoUrl%>' height='80px'></a><br>
+   <input name='photo' type='file'>
+</div>
+<div>
+    번호: <input readonly name='no' type='text' value='<%=member.getNo()%>'>
+</div>
+<div>
+    이메일: <input name='email' type='text' value='<%=member.getEmail()%>'>
+</div>
+<div>
+    이름: <input name='name' type='text' value='<%=member.getName()%>'>
+</div>
+<div>
+    암호: <input name='password' type='password'>
+</div>
+<div>
+    가입일: <input readonly type='text' value='<%=member.getCreatedDate()%>'>
+</div>
+<div>
+  <button>변경</button>
+  <a href='/member/delete?no=<%=member.getNo()%>'>[삭제]</a>
+</div>
+</form>
 
 <jsp:include page="/footer.jsp"></jsp:include>
 
