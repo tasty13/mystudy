@@ -1,9 +1,9 @@
-package bitcamp.myapp.servlet.member;
+package bitcamp.myapp.controller.member;
 
+import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,31 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-@WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet {
+public class MemberAddController implements PageController {
 
   private MemberDao memberDao;
   private String uploadDir;
 
-  @Override
-  public void init() {
-    this.memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-    uploadDir = this.getServletContext().getRealPath("/upload");
+  public MemberAddController(MemberDao memberDao, String uploadDir) {
+    this.memberDao = memberDao;
+    this.uploadDir = uploadDir;
   }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    if (request.getMethod().equals("GET")) {
+      return "/member/form.jsp";
 
-    request.setAttribute("viewUrl", "/member/form.jsp");
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
-    try {
+    } else {
       Member member = new Member();
       member.setEmail(request.getParameter("email"));
       member.setName(request.getParameter("name"));
@@ -51,10 +42,7 @@ public class MemberAddServlet extends HttpServlet {
       }
 
       memberDao.add(member);
-      request.setAttribute("viewUrl", "redirect:list");
-
-    } catch (Exception e) {
-      request.setAttribute("exception", e);
+      return "redirect:list";
     }
   }
 }
