@@ -44,7 +44,7 @@ public class BoardViewServlet extends HttpServlet {
       title = category == 1 ? "게시글" : "가입인사";
 
       request.setAttribute("category", Integer.valueOf(request.getParameter("category")));
-      request.setAttribute("title", category == 1 ? "게시글" : "가입인사");
+      request.setAttribute("boardName", category == 1 ? "게시글" : "가입인사");
 
       request.setAttribute("board", board);
       request.setAttribute("files", attachedFileDao.findAllByBoardNo(no));

@@ -31,7 +31,7 @@ public class BoardListServlet extends HttpServlet {
       title = category == 1 ? "게시글" : "가입인사";
 
       request.setAttribute("category", Integer.valueOf(request.getParameter("category")));
-      request.setAttribute("title", category == 1 ? "게시글" : "가입인사");
+      request.setAttribute("boardName", category == 1 ? "게시글" : "가입인사");
 
       request.setAttribute("list", boardDao.findAll(category));
       request.getRequestDispatcher("/board/list.jsp").forward(request, response);

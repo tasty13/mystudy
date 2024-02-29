@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ page import="bitcamp.myapp.vo.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang='en'>
@@ -12,17 +12,16 @@
 <jsp:include page="/header.jsp"></jsp:include>
 
 <h1>로그인</h1>
-<%
-    Member member = (Member) session.getAttribute("loginUser");
-    if (member != null) {%>
-      <p><%=member.getName()%> 님 환영합니다.</p>
-<%
-    response.setHeader("Refresh", "1;url=/index.html");
-    } else {%>
+<c:choose>
+    <c:when test=${member != null}>
+      <p>${member.name} 님 환영합니다.</p>
+<%  response.setHeader("Refresh", "1;url=/index.html"); %>
+    </c:when>
+    <c:otherwise>
       <p>이메일 또는 암호가 맞지 않습니다.</p>
-<%
-    response.setHeader("Refresh", "1;url=/auth/login");
-    }%>
+<%  response.setHeader("Refresh", "1;url=/auth/login"); %>
+    </c:otherwise>
+</c:choose>
 
 <jsp:include page="/footer.jsp"></jsp:include>
 
