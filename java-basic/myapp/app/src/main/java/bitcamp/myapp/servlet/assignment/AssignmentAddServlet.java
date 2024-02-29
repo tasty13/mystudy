@@ -25,7 +25,7 @@ public class AssignmentAddServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    request.getRequestDispatcher("/assignment/form.jsp").forward(request, response);
+    request.setAttribute("viewUrl", "/assignment/form.jsp");
   }
 
   @Override
@@ -38,12 +38,10 @@ public class AssignmentAddServlet extends HttpServlet {
       assignment.setDeadline(Date.valueOf(request.getParameter("deadline")));
 
       assignmentDao.add(assignment);
-      response.sendRedirect("/assignment/list");
+      request.setAttribute("viewUrl", "redirect:list");
 
     } catch (Exception e) {
-      request.setAttribute("message", "등록 오류!");
       request.setAttribute("exception", "e");
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

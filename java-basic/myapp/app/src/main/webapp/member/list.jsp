@@ -12,7 +12,7 @@
 <jsp:include page="/header.jsp"></jsp:include>
 
 <h1>회원</h1>
-<a href='/member/add'>새 회원</a>
+<a href='/app/member/add'>새 회원</a>
 
 <table border='1'>
     <thead>
@@ -24,15 +24,16 @@
         <tr>
             <td>${member.no}</td>
             <td>
-            <c:choose>
-                <c:when test="${not empty member.photo}">
-                    <img src='/upload/${member.photo}' height='20px'>
-                </c:when>
-                <c:otherwise>
-                    <img src='/img/default-photo.jpg' height='20px'>
-                </c:otherwise>
-            </c:choose>
-            <a href='/member/view?no=${member.no}'>${member.name}</a></td>
+                <c:choose>
+                    <c:when test="${not empty member.photo}">
+                        <img src='/upload/${member.photo}' height='20px'>
+                    </c:when>
+                    <c:otherwise>
+                        <img src='/img/default-photo.jpg' height='20px'>
+                    </c:otherwise>
+                </c:choose>
+              <a href='/app/member/view?no=${member.no}'>${member.name}</a>
+            </td>
             <td>${member.email}</td>
             <td>${member.createdDate}</td>
       </tr>
