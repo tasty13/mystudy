@@ -4,14 +4,9 @@ import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.dao.AttachedFileDao;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/board/view")
 public class BoardViewController implements PageController {
 
   private BoardDao boardDao;
@@ -24,8 +19,7 @@ public class BoardViewController implements PageController {
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String title = "";
-
+    String boardName = "";
     int no = Integer.parseInt(request.getParameter("no"));
 
     Board board = boardDao.findBy(no);
@@ -34,14 +28,14 @@ public class BoardViewController implements PageController {
     }
 
     int category = Integer.valueOf(request.getParameter("category"));
-    title = category == 1 ? "게시글" : "가입인사";
+    boardName = category == 1 ? "게시글" : "가입인사";
 
-    request.setAttribute("category", Integer.valueOf(request.getParameter("category")));
+    request.setAttribute("category", category);
     request.setAttribute("boardName", category == 1 ? "게시글" : "가입인사");
 
     request.setAttribute("board", board);
     request.setAttribute("files", attachedFileDao.findAllByBoardNo(no));
-    
+
     return "/board/view.jsp";
   }
 }
