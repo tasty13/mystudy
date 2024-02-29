@@ -41,11 +41,7 @@ public class BoardAddServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-//    int category = Integer.valueOf(request.getParameter("category"));
-//    String title = category == 1 ? "게시글" : "가입인사";
-
     request.setAttribute("category", Integer.valueOf(request.getParameter("category")));
-//    request.setAttribute("title", category == 1 ? "게시글" : "가입인사");
     request.getRequestDispatcher("/board/form.jsp").forward(request, response);
 
   }
