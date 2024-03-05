@@ -1,0 +1,48 @@
+﻿엔터티명	테이블명	속성명	컬럼명	도메인	데이터타입	키	널허용	기본값	주석
+회원	user	회원번호	no	일련번호	INTEGER	PK	Not Null		
+회원	user	아이디	id	이름	VARCHAR(50)		Not Null		
+회원	user	이메일	email	웹주소	VARCHAR(255)				
+회원	user	이름	name	이름	VARCHAR(50)		Not Null		
+회원	user	닉네임	nick	이름	VARCHAR(50)		Not Null		
+회원	user	비밀번호	password	암호	VARCHAR(100)		Not Null		
+회원	user	가입일	created_at	일시	DATETIME				
+중고거래게시판	sellboard	게시글번호	no	일련번호	INTEGER	PK	Not Null		
+중고거래게시판	sellboard	회원번호	user_no	일련번호	INTEGER	FK	Not Null		
+중고거래게시판	sellboard	제목	title	제목	VARCHAR(255)		Not Null		
+중고거래게시판	sellboard	내용	content	설명	TEXT		Not Null		
+중고거래게시판	sellboard	작성일	created_at	일시	DATETIME				
+중고거래게시판	sellboard	거래상태	status	상태	INTEGER		Not Null		
+북케이스	bookcase	북케이스번호	no	일련번호	INTEGER	PK	Not Null		
+북케이스	bookcase	회원번호	user_no	일련번호	INTEGER	FK	Not Null		
+북케이스	bookcase	제목	title	제목	VARCHAR(255)		Not Null		
+북케이스	bookcase	북마크여부	bookmark	YESNO	CHAR(1)				
+북케이스	bookcase	공개여부	public	YESNO	CHAR(1)				
+북케이스	bookcase	생성일	created_at	일시	DATETIME				
+장르	genre	장르번호	no	일련번호	INTEGER	PK	Not Null		
+장르	genre	장르명	name	이름	VARCHAR(50)		Not Null		
+책	book	책번호	no	일련번호	INTEGER	PK	Not Null		
+책	book	책제목	title	제목	VARCHAR(255)		Not Null		
+책	book	작가번호	writer_no	일련번호	INTEGER	FK	Not Null		
+책	book	출판사	publisher	이름	VARCHAR(50)		Not Null		
+책	book	장르번호	genre_no	일련번호	INTEGER	FK	Not Null		
+작가	writer	작가번호	no	일련번호	INTEGER	PK	Not Null		
+작가	writer	작가명	name	이름	VARCHAR(50)		Not Null		
+작가	writer	작가소개	introduce	설명	TEXT				
+리뷰	review	리뷰번호	no	일련번호	INTEGER	PK	Not Null		
+리뷰	review	책번호	no	일련번호	INTEGER	FK	Not Null		
+리뷰	review	작성자	user_no	일련번호	INTEGER	FK	Not Null		
+리뷰	review	별점	score	점수	INTEGER		Not Null		
+리뷰	review	내용	comment	설명	TEXT				
+리뷰	review	작성일	created_at	일시	DATETIME				
+북케이스내부책	inner_book	북케이스번호	bookcase_no	일련번호	INTEGER	PFK	Not Null		
+북케이스내부책	inner_book	책번호	book_no	일련번호	INTEGER	PFK	Not Null		
+팔로우한 작가	writer_like	회원번호	user_no	일련번호	INTEGER	PFK	Not Null		
+팔로우한 작가	writer_like	작가번호	writer_no	일련번호	INTEGER	PFK	Not Null			
+좋아한 리뷰	review_like	회원번호	user_no	일련번호	INTEGER	PFK	Not Null		
+좋아한 리뷰	review_like	리뷰번호	review_no	일련번호	INTEGER	PFK	Not Null		
+거래문의	ask_tobuy	거래문의번호	no	일련번호	INTEGER	PK	Not Null		
+거래문의	ask_tobuy	게시글번호	board_no	일련번호	INTEGER	FK	Not Null		
+거래문의	ask_tobuy	회원번호	user_no	일련번호	INTEGER	FK	Not Null		
+거래문의	ask_tobuy	내용	content	설명	TEXT		Not Null		
+거래문의	ask_tobuy	답변	reply	설명	TEXT				
+거래문의	ask_tobuy	등록일	created_at	일시	DATETIME				
