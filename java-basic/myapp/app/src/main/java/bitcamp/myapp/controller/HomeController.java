@@ -8,7 +8,6 @@ public class HomeController {
   @RequestMapping("/home")
   public String home(HttpServletRequest request, HttpServletResponse response)
       throws Exception {
-
     return "/home.jsp";
   }
 }

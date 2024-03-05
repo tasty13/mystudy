@@ -1,9 +1,9 @@
 package bitcamp.myapp.servlet;
 
-import bitcamp.myapp.controller.HomeController;
 import bitcamp.myapp.controller.AssignmentController;
 import bitcamp.myapp.controller.AuthController;
 import bitcamp.myapp.controller.BoardController;
+import bitcamp.myapp.controller.HomeController;
 import bitcamp.myapp.controller.MemberController;
 import bitcamp.myapp.controller.RequestMapping;
 import bitcamp.myapp.dao.AssignmentDao;
@@ -32,14 +32,13 @@ public class DispatcherServlet extends HttpServlet {
   private List<Object> controllers = new ArrayList<>();
 
   @Override
-
   public void init() throws ServletException {
     ServletContext ctx = this.getServletContext();
     TransactionManager txManager = (TransactionManager) ctx.getAttribute("txManager");
     BoardDao boardDao = (BoardDao) ctx.getAttribute("boardDao");
+    MemberDao memberDao = (MemberDao) ctx.getAttribute("memberDao");
     AssignmentDao assignmentDao = (AssignmentDao) ctx.getAttribute("assignmentDao");
     AttachedFileDao attachedFileDao = (AttachedFileDao) ctx.getAttribute("attachedFileDao");
-    MemberDao memberDao = (MemberDao) ctx.getAttribute("memberDao");
 
     controllers.add(new HomeController());
     controllers.add(new AssignmentController(assignmentDao));
@@ -50,7 +49,6 @@ public class DispatcherServlet extends HttpServlet {
 
     String memberUploadDir = this.getServletContext().getRealPath("/upload");
     controllers.add(new MemberController(memberDao, memberUploadDir));
-
   }
 
   @Override
@@ -58,18 +56,18 @@ public class DispatcherServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-      // URL 요청 처리할 request handler를 찾는다.
+      // URL 요청을 처리할 request handler를 찾는다.
       Object controller = null;
       Method requestHandler = null;
       for (Object obj : controllers) {
         requestHandler = findRequestHandler(obj, request.getPathInfo());
-        if (requestHandler == null) {
+        if (requestHandler != null) {
+          controller = obj;
           break;
         }
       }
-
       if (requestHandler == null) {
-        throw new ServletException(request.getPathInfo() + " 요청 페이지를 찾을 수 없습니다.");
+        throw new Exception(request.getPathInfo() + " 요청 페이지를 찾을 수 없습니다.");
       }
 
       String viewUrl = (String) requestHandler.invoke(controller, request, response);

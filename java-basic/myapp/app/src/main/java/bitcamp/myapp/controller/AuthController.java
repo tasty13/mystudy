@@ -1,6 +1,5 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.controller.RequestMapping;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import javax.servlet.http.Cookie;
@@ -27,7 +26,6 @@ public class AuthController {
           }
         }
       }
-
       return "/auth/form.jsp";
     }
 
@@ -46,17 +44,14 @@ public class AuthController {
     }
 
     Member member = memberDao.findByEmailAndPassword(email, password);
-
     if (member != null) {
       request.getSession().setAttribute("loginUser", member);
     }
-
     return "/auth/login.jsp";
   }
 
   @RequestMapping("/auth/logout")
-  public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     request.getSession().invalidate();
     return "redirect:/index.html";
   }
