@@ -21,7 +21,7 @@
     <c:if test="${empty member.photo}">
       <a href='/img/default-photo.jpg'> <img src='/img/default-photo.jpg' height='80px'></a><br>
     </c:if>
-    <input name='photo' type='file'>
+    <input name='file' type='file'>
 
 </div>
 <div>
