@@ -17,5 +17,5 @@
         <a href='/app/auth/logout'>로그아웃</a>
     </c:otherwise>
 </c:choose>
-  <a href='/about.html'>소개</a>
+  <a href='/app/about'>소개</a>
 </header>
