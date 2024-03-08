@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -23,7 +22,7 @@
   </div>
 <c:if test="${category == 1}">
   <div>
-        첨부파일: <input multiple name='files' type='file'>
+        첨부파일: <input multiple name='attachedFiles' type='file'>
   </div>
 </c:if>
 

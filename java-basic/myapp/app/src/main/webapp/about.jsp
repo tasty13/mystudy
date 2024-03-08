@@ -1,8 +1,8 @@
-<%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"%>
-
+<%@ page
+  language="java"
+  contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"
+  trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -17,3 +17,6 @@
 <p>이 사이트는 수업의 과제를 관리하는 서비스를 제공합니다.</p>
 
 <jsp:include page="/footer.jsp"></jsp:include>
+
+</body>
+</html>

@@ -11,21 +11,21 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:config/application-context.xml</param-value>
   </context-param>
-
-  <display-name>과제 관리 시스템</display-name>
-
   <description>
     애플리케이션 소개
   </description>
 
+  <display-name>과제 관리 시스템</display-name>
+
   <filter>
-    <filter-name>CharacterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <filter-name>CharacterEncodingFilter</filter-name>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
+
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -36,8 +36,6 @@
   </listener>
 
   <servlet>
-    <servlet-name>DispatcherServlet</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:config/app-servlet.xml</param-value>
@@ -46,10 +44,11 @@
     <multipart-config>
       <max-file-size>10000000</max-file-size>
     </multipart-config>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <servlet-name>DispatcherServlet</servlet-name>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Dispatcherservlet</servlet-name>
+    <servlet-name>DispatcherServlet</servlet-name>
     <url-pattern>/app/*</url-pattern>
   </servlet-mapping>
-
 </web-app>

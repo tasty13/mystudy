@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html lang='en'>
-<head>
+  <head>
   <meta charset='UTF-8'>
   <title>비트캠프 데브옵스 5기</title>
 </head>
@@ -14,7 +13,8 @@
 
 <form action='/app/auth/login' method='post'>
 <div>
-    이메일: <input name='email' type='text' value='${email}'>
+    이메일: <input name='email' type='text'
+    value='${email}'>
 </div>
 <div>
     암호: <input name='password' type='password'>
