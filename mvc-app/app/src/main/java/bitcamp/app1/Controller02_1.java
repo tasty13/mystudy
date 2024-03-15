@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/c02_1")
 public class Controller02_1 {
+
   @RequestMapping(method = RequestMethod.GET) // GET 요청일 때만 호출된다.
   @ResponseBody
   public String handler1() {

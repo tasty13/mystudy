@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/c02_2")
 public class Controller02_2 {
-  @GetMapping
+
+  @GetMapping // GET 요청일 때만 호출된다.
   @ResponseBody
   public String handler1() {
     return "get";
   }
 
-  @PostMapping
+  @PostMapping // POST 요청일 때만 호출된다.
   @ResponseBody
   public String handler2() {
     return "post";

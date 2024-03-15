@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
-@ComponentScan(value = "bitcamp.app1")
+@ComponentScan("bitcamp.app1")
 public class App1Config {
 
   @Bean

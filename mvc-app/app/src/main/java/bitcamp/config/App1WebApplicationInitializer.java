@@ -5,23 +5,12 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class App1WebApplicationInitializer extends
     AbstractAnnotationConfigDispatcherServletInitializer {
 
   private static Log log = LogFactory.getLog(App1WebApplicationInitializer.class);
-  AnnotationConfigWebApplicationContext rootContext;
-
-  @Override
-  protected WebApplicationContext createRootApplicationContext() {
-    rootContext = new AnnotationConfigWebApplicationContext();
-    rootContext.register(App1Config.class);
-    rootContext.refresh();
-    return rootContext;
-  }
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
@@ -47,7 +36,7 @@ public class App1WebApplicationInitializer extends
   protected void customizeRegistration(Dynamic registration) {
     registration.setMultipartConfig(new MultipartConfigElement(
         new File("./temp").getAbsolutePath(),
-//        new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
+        //new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
         1024 * 1024 * 10,
         1024 * 1024 * 100,
         1024 * 1024 * 1));

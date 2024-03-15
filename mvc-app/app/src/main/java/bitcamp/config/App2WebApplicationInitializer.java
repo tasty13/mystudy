@@ -2,20 +2,12 @@ package bitcamp.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class App2WebApplicationInitializer extends
-    AbstractAnnotationConfigDispatcherServletInitializer{
+    AbstractAnnotationConfigDispatcherServletInitializer {
 
   private static Log log = LogFactory.getLog(App2WebApplicationInitializer.class);
-  AnnotationConfigWebApplicationContext rootContext;
-
-  @Override
-  protected WebApplicationContext createRootApplicationContext() {
-    return null;
-  }
 
   @Override
   protected Class<?>[] getRootConfigClasses() {

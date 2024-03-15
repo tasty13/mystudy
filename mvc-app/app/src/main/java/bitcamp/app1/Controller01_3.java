@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/c01_3") // 핸들러에 적용될 기본 URL을 지정한다.
 public class Controller01_3 {
+
   @RequestMapping("h1") // 기본 URL에 뒤에 붙는 상세 URL. 예) /c01_3/h1
   @ResponseBody
   public String handler() {
