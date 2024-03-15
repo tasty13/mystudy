@@ -1,20 +1,15 @@
 package bitcamp.config;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration.Dynamic;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
-public class AppWebApplicationInitializer extends
+public class App2WebApplicationInitializer extends
     AbstractAnnotationConfigDispatcherServletInitializer{
 
-  private static Log log = LogFactory.getLog(AppWebApplicationInitializer.class);
+  private static Log log = LogFactory.getLog(App2WebApplicationInitializer.class);
   AnnotationConfigWebApplicationContext rootContext;
 
   @Override
@@ -29,16 +24,16 @@ public class AppWebApplicationInitializer extends
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {AppConfig.class};
+    return new Class[] {App2Config.class};
   }
 
   @Override
   protected String[] getServletMappings() {
-    return new String[] {"/app/*"};
+    return new String[] {"/app2/*"};
   }
 
   @Override
   protected String getServletName() {
-    return "app";
+    return "app2";
   }
 }

@@ -1,47 +1,55 @@
 package bitcamp.config;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import java.io.File;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
-public class AdminWebApplicationInitializer extends
+public class App1WebApplicationInitializer extends
     AbstractAnnotationConfigDispatcherServletInitializer {
 
-  private static Log log = LogFactory.getLog(AdminWebApplicationInitializer.class);
+  private static Log log = LogFactory.getLog(App1WebApplicationInitializer.class);
   AnnotationConfigWebApplicationContext rootContext;
 
   @Override
   protected WebApplicationContext createRootApplicationContext() {
     rootContext = new AnnotationConfigWebApplicationContext();
-    rootContext.register(RootConfig.class);
+    rootContext.register(App1Config.class);
     rootContext.refresh();
     return rootContext;
   }
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class[] {RootConfig.class};
+    return null;
   }
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {AdminConfig.class};
+    return new Class[] {App1Config.class};
   }
 
   @Override
   protected String[] getServletMappings() {
-    return new String[] {"/admin/*"};
+    return new String[] {"/app1/*"};
   }
 
   @Override
   protected String getServletName() {
-    return "admin";
+    return "app1";
+  }
+
+  @Override
+  protected void customizeRegistration(Dynamic registration) {
+    registration.setMultipartConfig(new MultipartConfigElement(
+        new File("./temp").getAbsolutePath(),
+//        new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
+        1024 * 1024 * 10,
+        1024 * 1024 * 100,
+        1024 * 1024 * 1));
   }
 }
