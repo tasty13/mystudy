@@ -39,6 +39,7 @@ public class App1WebApplicationInitializer extends
         //new File(System.getProperty("java.io.tmpdir")).getAbsolutePath(),
         1024 * 1024 * 10,
         1024 * 1024 * 100,
-        1024 * 1024 * 1));
+        1024 * 1024 * 1
+    ));
   }
 }
