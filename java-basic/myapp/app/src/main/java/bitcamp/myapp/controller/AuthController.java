@@ -6,34 +6,41 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
 
+  private final Log log = LogFactory.getLog(this.getClass());
   MemberDao memberDao;
 
   public AuthController(MemberDao memberDao) {
-    System.out.println("AuthController() 호출됨!");
+    log.debug("AuthController() 호출됨!");
     this.memberDao = memberDao;
   }
 
-  @RequestMapping("/auth/form")
+  @GetMapping("form")
   public String form(
       @CookieValue(value = "email", required = false) String email,
-      Map<String, Object> map) {
-    map.put("email", email);
+      Model model) {
+    model.addAttribute("email", email);
     return "/auth/form.jsp";
   }
 
-  @RequestMapping("/auth/login")
+  @PostMapping("login")
   public String login(
-      @RequestParam("email") String email,
-      @RequestParam("password") String password,
-      @RequestParam(value = "saveEmail", required = false) String saveEmail,  // 안넘어오면 null
+      String email,
+      String password,
+      String saveEmail,  // 안넘어오면 null
       HttpServletResponse response,
       HttpSession session) throws Exception {
 
@@ -54,7 +61,7 @@ public class AuthController {
     return "/auth/login.jsp";
   }
 
-  @RequestMapping("/auth/logout")
+  @GetMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/index.html";

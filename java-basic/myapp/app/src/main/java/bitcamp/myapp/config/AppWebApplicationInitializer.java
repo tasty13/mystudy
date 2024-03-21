@@ -6,6 +6,8 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -14,6 +16,12 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
 
 public class AppWebApplicationInitializer extends
     AbstractAnnotationConfigDispatcherServletInitializer {
+
+  private final Log log = LogFactory.getLog(this.getClass());
+
+  public AppWebApplicationInitializer() {
+    log.debug("생성자 호출됨!");
+  }
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
