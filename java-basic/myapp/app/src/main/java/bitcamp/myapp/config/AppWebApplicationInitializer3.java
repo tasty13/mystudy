@@ -9,28 +9,37 @@ import javax.servlet.ServletRegistration.Dynamic;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
-public class AppWebApplicationInitializer extends
-    AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppWebApplicationInitializer3 /* extends AbstractDispatcherServletInitializer */ {
 
-  @Override
-  protected Class<?>[] getRootConfigClasses() {
-    return new Class[]{RootConfig.class};
+  ServletContext servletContext;
+  AnnotationConfigWebApplicationContext rootContext;
+
+  // @Override
+  protected WebApplicationContext createRootApplicationContext() {
+    rootContext = new AnnotationConfigWebApplicationContext();
+    rootContext.register(RootConfig.class);
+    rootContext.refresh();
+    return rootContext;
   }
 
-  @Override
-  protected Class<?>[] getServletConfigClasses() {
-    return new Class[]{AppConfig.class};
+  // @Override
+  protected WebApplicationContext createServletApplicationContext() {
+    AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
+    appContext.register(AppConfig.class);
+    appContext.setParent(this.rootContext);
+    appContext.setServletContext(this.servletContext);
+    appContext.refresh();
+    return appContext;
   }
 
-  @Override
+  // @Override
   protected String[] getServletMappings() {
     return new String[]{"/app/*"};
   }
 
-  @Override
+  // @Override
   protected void customizeRegistration(Dynamic registration) {
     registration.setMultipartConfig(new MultipartConfigElement(
         new File("./temp").getAbsolutePath(),
@@ -41,8 +50,14 @@ public class AppWebApplicationInitializer extends
     ));
   }
 
-  @Override
+  // @Override
   protected Filter[] getServletFilters() {
     return new Filter[]{new CharacterEncodingFilter("UTF-8")};
+  }
+
+  // @Override
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    this.servletContext = servletContext;
+    // super.onStartup(servletContext);
   }
 }
