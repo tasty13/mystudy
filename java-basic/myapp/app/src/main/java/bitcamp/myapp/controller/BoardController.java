@@ -45,11 +45,10 @@ public class BoardController {
   }
 
   @GetMapping("form")
-  public String form(int category, Map<String, Object> map) throws Exception {
+  public void form(int category, Map<String, Object> map) throws Exception {
 
     map.put("boardName", category == 1 ? "게시글" : "가입인사");
     map.put("category", category);
-    return "/board/form.jsp";
   }
 
   @PostMapping("add")
@@ -103,16 +102,15 @@ public class BoardController {
   }
 
   @GetMapping("list")
-  public String list(int category, Model model) throws Exception {
+  public void list(int category, Model model) throws Exception {
 
     model.addAttribute("boardName", category == 1 ? "게시글" : "가입인사");
     model.addAttribute("category", category);
     model.addAttribute("list", boardDao.findAll(category));
-    return "/board/list.jsp";
   }
 
   @GetMapping("view")
-  public String view(int category, int no, Model model) throws Exception {
+  public void view(int category, int no, Model model) throws Exception {
 
     Board board = boardDao.findBy(no);
     if (board == null) {
@@ -125,7 +123,6 @@ public class BoardController {
     if (category == 1) {
       model.addAttribute("files", attachedFileDao.findAllByBoardNo(no));
     }
-    return "/board/view.jsp";
   }
 
   @PostMapping("update")
