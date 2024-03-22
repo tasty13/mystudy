@@ -3,16 +3,11 @@ package bitcamp.myapp.config;
 import java.io.File;
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
 public class AppWebApplicationInitializer extends
     AbstractAnnotationConfigDispatcherServletInitializer {
@@ -53,4 +48,5 @@ public class AppWebApplicationInitializer extends
   protected Filter[] getServletFilters() {
     return new Filter[]{new CharacterEncodingFilter("UTF-8")};
   }
+
 }

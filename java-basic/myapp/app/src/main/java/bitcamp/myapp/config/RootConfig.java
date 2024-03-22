@@ -31,7 +31,6 @@ public class RootConfig {
     InputStream inputStream = Resources.getResourceAsStream(resource);
     SqlSessionFactory sqlSessionFactory =
         new SqlSessionFactoryBuilder().build(inputStream);
-
     return sqlSessionFactory;
   }
 }

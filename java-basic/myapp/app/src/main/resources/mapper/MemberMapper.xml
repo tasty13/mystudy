@@ -4,13 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDao">
+
   <insert id="add" parameterType="bitcamp.myapp.vo.Member">
     insert into members(email,name,password,photo)
     values(#{email},#{name},sha2(#{password},256),#{photo})
   </insert>
 
   <delete id="delete" parameterType="int">
-    delete from members where member_no=#{value}  <!-- 아무이름이나 적어도 됨 -->
+    delete from members where member_no=#{value}
   </delete>
 
   <select id="findAll" resultType="bitcamp.myapp.vo.Member">
@@ -23,10 +24,12 @@
     from
       members
   </select>
+
   <select id="findBy" resultType="bitcamp.myapp.vo.Member" parameterType="int">
     select
       member_no as no,
-      email, name,
+      email,
+      name,
       photo,
       created_date as createdDate
     from
@@ -34,6 +37,7 @@
     where
       member_no=#{value}
   </select>
+
   <update id="update" parameterType="bitcamp.myapp.vo.Member">
     update members set
       email=#{email},
@@ -45,6 +49,7 @@
     where
       member_no=#{no}
   </update>
+
   <select id="findByEmailAndPassword" resultType="bitcamp.myapp.vo.Member" parameterType="map">
     select
       member_no as no,
@@ -54,6 +59,7 @@
     from
       members
     where
-      email=#{email} and password=sha2(#{password},256)
+      email= #{email}
+      and password=sha2(#{password},256)
   </select>
 </mapper>

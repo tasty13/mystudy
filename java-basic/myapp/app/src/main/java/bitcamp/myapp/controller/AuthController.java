@@ -2,7 +2,6 @@ package bitcamp.myapp.controller;
 
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
-import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/auth")
@@ -37,7 +35,7 @@ public class AuthController {
   public String login(
       String email,
       String password,
-      String saveEmail,  // 안넘어오면 null
+      String saveEmail,
       HttpServletResponse response,
       HttpSession session) throws Exception {
 
@@ -55,7 +53,8 @@ public class AuthController {
     if (member != null) {
       session.setAttribute("loginUser", member);
     }
-    return "/auth/login";
+
+    return "auth/login";
   }
 
   @GetMapping("logout")

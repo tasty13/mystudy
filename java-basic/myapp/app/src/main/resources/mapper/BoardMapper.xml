@@ -20,7 +20,7 @@
   </resultMap>
 
   <insert id="add" parameterType="bitcamp.myapp.vo.Board"
-    useGeneratedKeys="true" keyColumn="board_no" keyProperty="no">  <!-- 자동생성된 key값 리턴받겠다. board_no에 받고 no로 설정-->
+    useGeneratedKeys="true" keyColumn="board_no" keyProperty="no">
     insert into boards(title,content,writer,category) 
     values(#{title},#{content},#{writer.no},#{category})
   </insert>
@@ -32,7 +32,7 @@
 
   <select id="findAll" resultMap="BoardMap" parameterType="int">
     select  
-      b.board_no, <!--resultMap에서 지정해줘서 별명 지칭할 필요 사라짐-->
+      b.board_no,
       b.title,  
       b.created_date,
       count(file_no) file_count,

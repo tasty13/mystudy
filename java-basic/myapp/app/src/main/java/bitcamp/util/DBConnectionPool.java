@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class DBConnectionPool implements ConnectionPool {
 
-  private final Log log = LogFactory.getLog(this.getClass());
   // 개별 스레드용 DB 커넥션 저장소
   private static final ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal<>();
+  private final Log log = LogFactory.getLog(this.getClass());
   // DB 커넥션 목록
   ArrayList<Connection> connections = new ArrayList<>();
 

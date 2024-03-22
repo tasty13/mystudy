@@ -7,11 +7,12 @@
 
   <insert id="add" parameterType="bitcamp.myapp.vo.Assignment">
     insert into assignments(title,content,deadline)
-    values(#{title},#{content},#{deadline})
+    values(#{title}, #{content}, #{deadline})
   </insert>
 
   <delete id="delete" parameterType="int">
-    delete from assignments where assignment_no=#{value}
+    delete from assignments
+    where assignment_no=#{value}
   </delete>
 
   <select id="findAll" resultType="bitcamp.myapp.vo.Assignment">

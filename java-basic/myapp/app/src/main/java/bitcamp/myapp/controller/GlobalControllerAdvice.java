@@ -15,7 +15,6 @@ public class GlobalControllerAdvice {
 
   @InitBinder
   public void initBinder(WebDataBinder webDataBinder) {
-
     webDataBinder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
       public void setAsText(String text) throws IllegalArgumentException {
         this.setValue(Date.valueOf(text));
@@ -31,9 +30,10 @@ public class GlobalControllerAdvice {
     StringWriter stringWriter = new StringWriter();
     PrintWriter out = new PrintWriter(stringWriter);
     e.printStackTrace(out);
+
     mv.addObject("detail", stringWriter.toString());
 
-    mv.setViewName("/error");
+    mv.setViewName("error");
     return mv;
   }
 }

@@ -1,19 +1,12 @@
 package bitcamp.myapp.dao.mysql;
 
 import bitcamp.myapp.dao.AssignmentDao;
-import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.vo.Assignment;
-import bitcamp.util.DBConnectionPool;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository

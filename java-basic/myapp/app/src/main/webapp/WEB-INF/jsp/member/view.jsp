@@ -18,7 +18,7 @@
       <a href='/upload/${member.photo}'> <img src='/upload/${member.photo}' height='80px'></a><br>
     </c:if>
     <c:if test="${empty member.photo}">
-      <a href='/img/default-photo.jpg'> <img src='/img/default-photo.jpg' height='80px'></a><br>
+      <a href='/img/default-photo.jpeg'> <img src='/img/default-photo.jpeg' height='80px'></a><br>
     </c:if>
       <input name='file' type='file'>
 </div>

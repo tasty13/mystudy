@@ -27,7 +27,7 @@
         <img src='/upload/${member.photo}' height='20px'>
     </c:when>
     <c:otherwise>
-        <img src='/img/default-photo.jpg' height='20px'>
+        <img src='/img/default-photo.jpeg' height='20px'>
     </c:otherwise>
   </c:choose>
         <a href='/app/member/view?no=${member.no}'>${member.name}</a></td>

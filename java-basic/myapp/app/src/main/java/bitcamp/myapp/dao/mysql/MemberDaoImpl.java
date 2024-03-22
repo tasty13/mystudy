@@ -1,15 +1,9 @@
 package bitcamp.myapp.dao.mysql;
 
-import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DBConnectionPool;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
@@ -68,8 +62,7 @@ public class MemberDaoImpl implements MemberDao {
       HashMap<String, Object> data = new HashMap<>();
       data.put("email", email);
       data.put("password", password);
-
-      return sqlSession.selectOne("MemberDao.findBy", data);
+      return sqlSession.selectOne("MemberDao.findByEmailAndPassword", data);
     }
   }
 }
