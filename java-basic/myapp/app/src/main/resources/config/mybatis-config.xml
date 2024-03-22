@@ -19,6 +19,8 @@
 
   <mappers>
     <mapper resource="mapper/MemberMapper.xml"/>  <!--sql 분리-->
+    <mapper resource="mapper/AssignmentMapper.xml"/>
+    <mapper resource="mapper/BoardMapper.xml"/>
   </mappers>
 
 </configuration>
