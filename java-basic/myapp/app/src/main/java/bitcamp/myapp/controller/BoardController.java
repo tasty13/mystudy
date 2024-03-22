@@ -9,7 +9,6 @@ import bitcamp.util.TransactionManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -45,10 +44,9 @@ public class BoardController {
   }
 
   @GetMapping("form")
-  public void form(int category, Map<String, Object> map) throws Exception {
-
-    map.put("boardName", category == 1 ? "게시글" : "가입인사");
-    map.put("category", category);
+  public void form(int category, Model model) throws Exception {
+    model.addAttribute("boardName", category == 1 ? "게시글" : "가입인사");
+    model.addAttribute("category", category);
   }
 
   @PostMapping("add")
@@ -103,7 +101,6 @@ public class BoardController {
 
   @GetMapping("list")
   public void list(int category, Model model) throws Exception {
-
     model.addAttribute("boardName", category == 1 ? "게시글" : "가입인사");
     model.addAttribute("category", category);
     model.addAttribute("list", boardDao.findAll(category));
@@ -111,7 +108,6 @@ public class BoardController {
 
   @GetMapping("view")
   public void view(int category, int no, Model model) throws Exception {
-
     Board board = boardDao.findBy(no);
     if (board == null) {
       throw new Exception("번호가 유효하지 않습니다.");
@@ -202,9 +198,9 @@ public class BoardController {
       txManager.startTransaction();
       attachedFileDao.deleteAll(no);
       txManager.commit();
-      
-      boardDao.delete(no);
 
+      boardDao.delete(no);
+      
       for (AttachedFile file : files) {
         new File(this.uploadDir + "/" + file.getFilePath()).delete();
       }
