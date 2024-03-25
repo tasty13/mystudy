@@ -1,7 +1,5 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.AttachedFileDao;
-import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
@@ -17,7 +15,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +28,6 @@ public class BoardController {
   private final Log log = LogFactory.getLog(this.getClass());
   private BoardService boardService;
   private String uploadDir;
-
   @Autowired
   private ApplicationContext ctx;
 
@@ -45,12 +41,6 @@ public class BoardController {
   public void form(int category, Model model) throws Exception {
     model.addAttribute("boardName", category == 1 ? "게시글" : "가입인사");
     model.addAttribute("category", category);
-
-//    // IoC 컨테이너에 들어 있는 객체들
-//    String[] beanNames = ctx.getBeanDefinitionNames();
-//    for (String beanName : beanNames) {
-//      log.debug(ctx.getBean(beanName).getClass().getSimpleName());
-//    }
   }
 
   @PostMapping("add")
@@ -79,7 +69,6 @@ public class BoardController {
         files.add(new AttachedFile().filePath(filename));
       }
     }
-
     board.setFiles(files);
 
     boardService.add(board);
@@ -105,9 +94,6 @@ public class BoardController {
     model.addAttribute("boardName", category == 1 ? "게시글" : "가입인사");
     model.addAttribute("category", category);
     model.addAttribute("board", board);
-    if (category == 1) {
-      model.addAttribute("files", boardService.getAttachedFile(no));
-    }
   }
 
   @PostMapping("update")
@@ -144,6 +130,7 @@ public class BoardController {
       }
     }
     board.setFiles(files);
+
     boardService.update(board);
 
     return "redirect:list";
@@ -196,6 +183,7 @@ public class BoardController {
     }
 
     boardService.deleteAttachedFile(no);
+
     new File(this.uploadDir + "/" + file.getFilePath()).delete();
 
     return "redirect:../view?category=" + category + "&no=" + file.getBoardNo();

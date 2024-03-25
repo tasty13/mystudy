@@ -6,7 +6,6 @@ import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import java.util.List;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +58,7 @@ public class DefaultBoardService implements BoardService {
   @Transactional
   @Override
   public int delete(int no) {
-    attachedFileDao.delete(no);
+    attachedFileDao.deleteAll(no);
     return boardDao.delete(no);
   }
 
