@@ -1,6 +1,5 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.vo.Member;
 import java.io.File;
@@ -19,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/member")
 public class MemberController {
 
-  private final Log log = LogFactory.getLog(this.getClass());
-  private MemberService memberService;
+  private final static Log log = LogFactory.getLog(MemberController.class);
+  private final MemberService memberService;
   private String uploadDir;
 
   public MemberController(MemberService memberService, ServletContext sc) {

@@ -1,24 +1,22 @@
 package bitcamp.myapp.service.impl;
 
+import bitcamp.myapp.controller.AuthController;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.vo.Member;
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+@RequiredArgsConstructor
 @Service
 public class DefaultMemberService implements MemberService {
 
-  private MemberDao memberDao;
+  private static final Log log = LogFactory.getLog(DefaultMemberService.class);
+  private final MemberDao memberDao;
 
-  public DefaultMemberService(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
-
-  @Transactional
   @Override
   public void add(Member member) {
     memberDao.add(member);
@@ -34,16 +32,18 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findBy(no);
   }
 
-  @Transactional
+  @Override
+  public Member get(String email, String password) {
+    return memberDao.findByEmailAndPassword(email, password);
+  }
+
   @Override
   public int update(Member member) {
     return memberDao.update(member);
   }
 
-  @Transactional
   @Override
   public int delete(int no) {
     return memberDao.delete(no);
   }
-
 }
