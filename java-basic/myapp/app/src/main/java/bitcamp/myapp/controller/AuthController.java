@@ -1,6 +1,6 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.vo.Member;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
   private static final Log log = LogFactory.getLog(AuthController.class);
-  MemberDao memberDao;
+  private final MemberService memberService;
 
   @GetMapping("form")
   public void form(@CookieValue(required = false) String email, Model model) {
@@ -46,7 +46,7 @@ public class AuthController {
       response.addCookie(cookie);
     }
 
-    Member member = memberDao.findByEmailAndPassword(email, password);
+    Member member = memberService.get(email, password);
     if (member != null) {
       session.setAttribute("loginUser", member);
     }

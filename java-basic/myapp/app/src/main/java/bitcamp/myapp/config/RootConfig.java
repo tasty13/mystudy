@@ -1,12 +1,9 @@
 package bitcamp.myapp.config;
 
-import java.io.InputStream;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @MapperScan("bitcamp.myapp.dao")
-@ComponentScan(value = {"bitcamp.myapp.dao", "bitcamp.myapp.service"})
+@ComponentScan({"bitcamp.myapp.dao", "bitcamp.myapp.service"})
 @PropertySource({"classpath:config/jdbc.properties"})
 public class RootConfig {
 
@@ -29,6 +26,11 @@ public class RootConfig {
 
   public RootConfig() {
     log.debug("생성자 호출됨!");
+  }
+
+  @Bean
+  public PlatformTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
   }
 
   @Bean
@@ -40,17 +42,14 @@ public class RootConfig {
   }
 
   @Bean
-  public PlatformTransactionManager transactionManager(DataSource dataSource) {
-    return new DataSourceTransactionManager(dataSource);
-  }
 
-  @Bean
   public SqlSessionFactory sqlSessionFactory(ApplicationContext ctx, DataSource dataSource)
       throws Exception {
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-    sqlSessionFactoryBean.setDataSource(dataSource);
     sqlSessionFactoryBean.setTypeAliasesPackage("bitcamp.myapp.vo");
     sqlSessionFactoryBean.setMapperLocations(ctx.getResources("classpath:mapper/*Mapper.xml"));
+    sqlSessionFactoryBean.setDataSource(dataSource);
+
     return sqlSessionFactoryBean.getObject();
   }
 }

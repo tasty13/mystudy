@@ -16,6 +16,7 @@ public interface MemberDao {
 
   public int update(Member member);
 
-  public Member findByEmailAndPassword(@Param("email") String email,
-      @Param("password") String password); // 이 @Param은 생략불가 (Spring 문법이 아닌 MyBatis 문법
+  public Member findByEmailAndPassword(
+      @Param("email") String email,
+      @Param("password") String password);
 }

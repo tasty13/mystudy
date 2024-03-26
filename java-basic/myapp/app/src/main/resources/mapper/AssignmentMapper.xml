@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="bitcamp.myapp.dao.AssignmentDao">
+
   <resultMap id="AssignmentMap" type="Assignment">
     <id column="assignment_no" property="no"/>
     <result column="title" property="title"/>
@@ -21,7 +22,7 @@
     where assignment_no=#{value}
   </delete>
 
-  <select id="findAll" resultMap="AssignmentMap" resultType="Assignment">
+  <select id="findAll" resultMap="AssignmentMap">
     select
       assignment_no,
       title,
@@ -32,7 +33,7 @@
       assignment_no desc
   </select>
 
-  <select id="findBy" resultMap="AssignmentMap" resultType="Assignment" parameterType="int">
+  <select id="findBy" resultMap="AssignmentMap" parameterType="int">
     select
       assignment_no,
       title,

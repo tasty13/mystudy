@@ -6,8 +6,8 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
+@Data
 public class Board implements Serializable {
 
   private static final long serialVersionUID = 100L;
@@ -20,4 +20,5 @@ public class Board implements Serializable {
   private Date createdDate;
   private List<AttachedFile> files;
   private int fileCount;
+
 }

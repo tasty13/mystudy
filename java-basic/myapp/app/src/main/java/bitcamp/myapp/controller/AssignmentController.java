@@ -1,13 +1,11 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.AssignmentDao;
 import bitcamp.myapp.service.AssignmentService;
 import bitcamp.myapp.vo.Assignment;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AssignmentController {
 
   private static final Log log = LogFactory.getLog(AssignmentController.class);
-  private AssignmentService assignmentService;
+  private final AssignmentService assignmentService;
 
   @GetMapping("form")
   public void form() throws Exception {
@@ -40,7 +38,6 @@ public class AssignmentController {
   @GetMapping("view")
   public void view(int no, Model model) throws Exception {
     Assignment assignment = assignmentService.get(no);
-    log.debug(assignment.toString());
     if (assignment == null) {
       throw new Exception("과제 번호가 유효하지 않습니다.");
     }
