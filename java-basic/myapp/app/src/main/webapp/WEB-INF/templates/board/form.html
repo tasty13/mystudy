@@ -8,20 +8,22 @@
 
 <div data-th-replace="header :: header">머리말</div>
 
-<h1>과제 관리 시스템</h1>
+<h1>${boardName}</h1>
 
-<h2>과제</h2>
-
-<form action="add" data-th-action="@{add}" method='post'>
+<form action='/app/board/add' data-th-action="@{add}" method='post' enctype='multipart/form-data'>
+  <input name='category' type='hidden' value='${category}'>
   <div>
-    과제: <input name='title' type='text'>
+    제목: <input name='title' type='text'>
   </div>
   <div>
     내용: <textarea name='content'></textarea>
   </div>
-  <div>
-    제출 마감일: <input name='deadline' type='date'>
-  </div>
+  <c:if test="${category == 1}">
+    <div>
+      첨부파일: <input multiple name='attachedFiles' type='file'>
+    </div>
+  </c:if>
+
   <div>
     <button>등록</button>
   </div>
