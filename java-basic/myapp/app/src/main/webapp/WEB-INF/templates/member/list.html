@@ -23,7 +23,10 @@
   <tr data-th-each="member : ${list}" data-th-object="${member}">
     <td data-th-data="*{no}">100</td>
     <td>
-      <img data-th-if="*{photo}" data-th-src="@{'/upload/' + *{photo}}" height='20px'
+      <img data-th-if="*{photo}"
+           data-th-src="@{'https://xur9nfje2687.edge.naverncp.com/JyyQxZSYpH/member/' + *{photo}(type=f,w=20,h=20,ttype=jpg)}"
+
+           height='20px'
            src="/img/default-photo.jpeg">
       <img data-th-unless="*{photo}" height='20px' src='/img/default-photo.jpeg'>
       <a data-th-href="@{view(no=*{no})}" data-th-text="*{name}" href="view.html">홍길동</a></td>
@@ -34,6 +37,5 @@
 </table>
 
 <div data-th-replace="footer :: footer">꼬리말</div>
-
 </body>
 </html>

@@ -1,6 +1,7 @@
 package bitcamp.myapp.controller;
 
 import bitcamp.myapp.service.MemberService;
+import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.Member;
 import java.io.File;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +25,18 @@ public class MemberController implements InitializingBean {
 
   private static final Log log = LogFactory.getLog(MemberController.class);
   private final MemberService memberService;
-  private final ServletContext servletContext;
+  private final StorageService storageService;
   private String uploadDir;
+
+  @Value("${ncp.ss.bucketname}")
+  private String bucketName = "bitcamp-devops5-129";
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    this.uploadDir = servletContext.getRealPath("/upload");
+    this.uploadDir = "member/";
+
+    log.debug(String.format("uploadDir: %s", this.uploadDir));
+    log.debug(String.format("bucketName: %s", this.bucketName));
   }
 
   @GetMapping("form")
@@ -38,9 +46,8 @@ public class MemberController implements InitializingBean {
   @PostMapping("add")
   public String add(Member member, MultipartFile file) throws Exception {
     if (file.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
+      String filename = storageService.upload(this.bucketName, this.uploadDir, file);
       member.setPhoto(filename);
-      file.transferTo(new File(this.uploadDir + "/" + filename));
     }
     memberService.add(member);
     return "redirect:list";
