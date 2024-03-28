@@ -84,7 +84,12 @@ public class NcpStorageService implements StorageService, InitializingBean {
       log.debug(String.format("Object %s has been created.\n", objectName));
 
       return filename;
-
     }
+  }
+
+  @Override
+  public void delete(String bucketName, String path, String objectName) throws Exception {
+    s3.deleteObject(bucketName, path + objectName);
+    System.out.format("Object %s has been deleted.\n", objectName);
   }
 }

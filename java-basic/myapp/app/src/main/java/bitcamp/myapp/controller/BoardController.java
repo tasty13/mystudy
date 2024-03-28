@@ -1,6 +1,7 @@
 package bitcamp.myapp.controller;
 
 import bitcamp.myapp.service.BoardService;
+import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
@@ -14,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,17 +27,15 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/board")
-public class BoardController implements InitializingBean {
+public class BoardController {
 
   private static final Log log = LogFactory.getLog(BoardController.class);
   private final BoardService boardService;
-  private final ServletContext servletContext;
-  private String uploadDir;
+  private final StorageService storageService;
+  private String uploadDir = "board/";
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    this.uploadDir = servletContext.getRealPath("/upload/board");
-  }
+  @Value("${ncp.ss.bucketname}")
+  private String bucketName = "bitcamp-devops5-129";
 
   @GetMapping("form")
   public void form(int category, Model model) throws Exception {
@@ -63,8 +64,7 @@ public class BoardController implements InitializingBean {
         if (file.getSize() == 0) {
           continue;
         }
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(this.uploadDir + "/" + filename));
+        String filename = storageService.upload(this.bucketName, this.uploadDir, file);
         files.add(AttachedFile.builder().filePath(filename).build());
       }
     }
@@ -125,8 +125,7 @@ public class BoardController implements InitializingBean {
         if (file.getSize() == 0) {
           continue;
         }
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(this.uploadDir + "/" + filename));
+        String filename = storageService.upload(this.bucketName, this.uploadDir, file);
         files.add(AttachedFile.builder().filePath(filename).build());
       }
     }
@@ -161,7 +160,7 @@ public class BoardController implements InitializingBean {
     boardService.delete(no);
 
     for (AttachedFile file : files) {
-      new File(this.uploadDir + "/" + file.getFilePath()).delete();
+      storageService.delete(this.bucketName, this.uploadDir, file.getFilePath());
     }
 
     return "redirect:list?category=" + category;
@@ -187,7 +186,7 @@ public class BoardController implements InitializingBean {
 
     boardService.deleteAttachedFile(no);
 
-    new File(this.uploadDir + "/" + file.getFilePath()).delete();
+    storageService.delete(this.bucketName, this.uploadDir, file.getFilePath());
 
     return "redirect:../view?category=" + category + "&no=" + file.getBoardNo();
   }
