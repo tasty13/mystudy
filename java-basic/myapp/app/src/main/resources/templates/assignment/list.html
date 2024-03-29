@@ -24,13 +24,27 @@
     <td data-th-text="*{no}">101</td>
     <td><a data-th-href="@{view(no=*{no})}"
            data-th-text="*{title}"
-           href="view.html">자바 조건문
-      만들기</a>
+           href="view.html">자바 조건문 만들기</a>
     </td>
     <td data-th-text="*{deadline}">2024-03-27</td>
   </tr>
   </tbody>
 </table>
+
+<p>
+  [
+  <a data-th-if="${pageNo <= 1}">이전</a>
+  <a data-th-if="${pageNo > 1}"
+     data-th-href="@{pageNo=${pageNo-1},pageSize=${pageSize})}"
+     href="list">이전</a>
+  ]
+  [
+  <a data-th-if="${pageNo >= numOfPage}">다음</a>
+  <a data-th-if="${pageNo < numOfPage}"
+     data-th-href="@{pageNo=${pageNo+1},pageSize=${pageSize})}"
+     href="list">다음</a>
+  ]
+</p>
 
 <div data-th-replace="footer :: footer">꼬리말</div>
 
