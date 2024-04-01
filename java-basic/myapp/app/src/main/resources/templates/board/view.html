@@ -9,8 +9,9 @@
 <div data-th-replace="header :: header">머리말</div>
 
 <h1 data-th-text="${boardName}">게시글</h1>
-<form action="update" method='post' data-th-action="@{update}" data-th-object="${board}"
-      enctype='multipart/form-data'>
+<form action="update" data-th-action="@{update}" data-th-object="${board}"
+      enctype='multipart/form-data'
+      method='post'>
   <input data-th-value="${category}" name='category' type='hidden'>
   <div>
     번호: <input data-th-value="*{no}" readonly name='no' type='text' value='100'>
