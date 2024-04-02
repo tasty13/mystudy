@@ -5,19 +5,14 @@ import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,7 +65,7 @@ public class BoardController {
       }
     }
     if (files.size() > 0) {
-      board.setFiles(files);
+      board.setFileList(files);
     }
 
     boardService.add(board);
@@ -153,7 +148,7 @@ public class BoardController {
       }
     }
     if (files.size() > 0) {
-      board.setFiles(files);
+      board.setFileList(files);
     }
 
     boardService.update(board);

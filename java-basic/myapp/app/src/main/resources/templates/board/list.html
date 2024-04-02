@@ -9,9 +9,7 @@
 <div data-th-replace="header :: header">머리말</div> <!--따로 지정 안하면 루트에서부터 찾음-->
 
 <h1 data-th-text="${boardName}">게시글</h1>
-<a data-th-href="@{form(category=${category})}" href="form.html">새 글</a>  <!--data-th-href: href ㄱㅄ 지정,
-경로는 안적으면 현재url(request url)에서 찾음, 서블릿 리퀘스트에 저장된 category 값에서 가져옴-->
-<!--타임리프 값 저장후 지움-->
+<a data-th-href="@{form(category=${category})}" href="form.html">새 글</a>
 <table border='1'>
   <thead>
   <tr>
