@@ -7,14 +7,8 @@ public class Main {
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     long n = Long.parseLong(br.readLine());
-    int sum = 0;
-    for (long i = 0; i < n - 2; i++) {
-      for (long j = i; j < n - 1; j++) {
-        for (long k = j; k < n; k++) {
-          sum++;
-        }
-      }
-    }
-    System.out.println(sum);
+    long sum = n * (n - 1) * (n - 2) / (1 * 2 * 3);
+
+    System.out.println(sum + "\n" + 3);
   }
 }
