@@ -1,17 +1,14 @@
 package bitcamp.myapp.service.impl;
 
 import bitcamp.myapp.service.StorageService;
-import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import java.io.File;
 import java.io.InputStream;
 import java.util.UUID;
 import org.apache.commons.logging.Log;
@@ -30,7 +27,7 @@ public class NcpStorageService implements StorageService, InitializingBean {
   final String regionName;
   final String accessKey;
   final String secretKey;
-  final AmazonS3 s3;  // S3 client
+  final AmazonS3 s3;
 
   public NcpStorageService(
       @Value("${ncp.ss.endpoint}") String endPoint,
@@ -67,9 +64,13 @@ public class NcpStorageService implements StorageService, InitializingBean {
       String filename = UUID.randomUUID().toString();
       String objectName = path + filename;
 
-      // 서버의 업로드할 파일의 정보를 준비
+      // 서버에 업로드할 파일의 정보를 준비
       ObjectMetadata objectMetadata = new ObjectMetadata();
       objectMetadata.setContentType(multipartFile.getContentType());
+
+      log.info(String.format("%s(%s)",
+          multipartFile.getOriginalFilename(),
+          multipartFile.getContentType()));
 
       // 서버에 업로드 요청 정보 생성
       PutObjectRequest putObjectRequest = new PutObjectRequest(
@@ -77,10 +78,11 @@ public class NcpStorageService implements StorageService, InitializingBean {
           objectName,
           fileIn,
           objectMetadata
-      ).withCannedAcl(CannedAccessControlList.PublicRead);  // 업로드한 파일의 접근 범위 설정
+      ).withCannedAcl(CannedAccessControlList.PublicRead);
 
       // 서버에 업로드 실행
       s3.putObject(putObjectRequest);
+
       log.debug(String.format("Object %s has been created.\n", objectName));
 
       return filename;
@@ -90,6 +92,7 @@ public class NcpStorageService implements StorageService, InitializingBean {
   @Override
   public void delete(String bucketName, String path, String objectName) throws Exception {
     s3.deleteObject(bucketName, path + objectName);
-    System.out.format("Object %s has been deleted.\n", objectName);
+    
+    log.debug(String.format("Object %s has been deleted.\n", objectName));
   }
 }

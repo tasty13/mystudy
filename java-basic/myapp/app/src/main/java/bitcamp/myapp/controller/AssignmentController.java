@@ -32,13 +32,15 @@ public class AssignmentController {
   }
 
   @GetMapping("list")
-  public void list(Model model,
+  public void list(
       @RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "3") int pageSize) throws Exception {
+      @RequestParam(defaultValue = "3") int pageSize,
+      Model model) throws Exception {
 
     if (pageSize < 3 || pageSize > 20) {
       pageSize = 3;
     }
+
     if (pageNo < 1) {
       pageNo = 1;
     }

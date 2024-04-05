@@ -2,15 +2,12 @@ package bitcamp.myapp.service;
 
 import bitcamp.myapp.vo.Assignment;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface AssignmentService {
 
   void add(Assignment assignment);
 
-  List<Assignment> list(
-      @Param("offset") int offset,
-      @Param("rowCount") int rowCount);
+  List<Assignment> list(int pageNo, int pageSize);
 
   Assignment get(int no);
 

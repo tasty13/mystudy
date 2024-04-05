@@ -7,11 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.GetMapping;
 
+@SpringBootApplication
+@EnableTransactionManagement
 @PropertySource({
     "classpath:config/ncp.properties",
-    "classpath:config/ncp-secret.properties"})
-@EnableTransactionManagement
-@SpringBootApplication
+    "classpath:config/ncp-secret.properties"
+})
 @Controller
 public class App {
 
@@ -22,12 +23,9 @@ public class App {
 
   @GetMapping("/home")
   public void home() {
-    // return "home"; // ==> ThymeleafViewResolver가 처리한다.
   }
 
   @GetMapping("/about")
   public void about() {
   }
 }
-
-

@@ -2,15 +2,12 @@ package bitcamp.myapp.service;
 
 import bitcamp.myapp.vo.Member;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface MemberService {
 
   void add(Member member);
 
-  List<Member> list(
-      @Param("offset") int offset,
-      @Param("rowCount") int rowCount);
+  List<Member> list(int pageNo, int pageSize);
 
   Member get(int no);
 

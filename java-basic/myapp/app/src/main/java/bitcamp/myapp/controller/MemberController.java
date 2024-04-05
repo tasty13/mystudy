@@ -3,9 +3,6 @@ package bitcamp.myapp.controller;
 import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.service.StorageService;
 import bitcamp.myapp.vo.Member;
-import java.io.File;
-import java.util.UUID;
-import javax.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,19 +22,20 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController implements InitializingBean {
 
   private static final Log log = LogFactory.getLog(MemberController.class);
+
   private final MemberService memberService;
   private final StorageService storageService;
   private String uploadDir;
 
   @Value("${ncp.ss.bucketname}")
-  private String bucketName = "bitcamp-devops5-129";
+  private String bucketName;
 
   @Override
   public void afterPropertiesSet() throws Exception {
     this.uploadDir = "member/";
 
     log.debug(String.format("uploadDir: %s", this.uploadDir));
-    log.debug(String.format("bucketName: %s", this.bucketName));
+    log.debug(String.format("bucketname: %s", this.bucketName));
   }
 
   @GetMapping("form")
@@ -55,19 +53,24 @@ public class MemberController implements InitializingBean {
   }
 
   @GetMapping("list")
-  public void list(Model model,
+  public void list(
       @RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "3") int pageSize) throws Exception {
+      @RequestParam(defaultValue = "3") int pageSize,
+      Model model) throws Exception {
 
     if (pageSize < 3 || pageSize > 20) {
       pageSize = 3;
     }
+
     if (pageNo < 1) {
       pageNo = 1;
     }
 
     int numOfRecord = memberService.countAll();
     int numOfPage = numOfRecord / pageSize + ((numOfRecord % pageSize) > 0 ? 1 : 0);
+
+    log.debug(String.format("numOfRecord: %s", numOfRecord));
+    log.debug(String.format("numOfPage: %s", numOfPage));
 
     if (pageNo > numOfPage) {
       pageNo = numOfPage;
