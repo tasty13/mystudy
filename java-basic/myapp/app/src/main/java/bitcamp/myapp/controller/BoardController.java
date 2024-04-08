@@ -80,6 +80,7 @@ public class BoardController {
     if (pageSize < 3 || pageSize > 20) {
       pageSize = 3;
     }
+
     if (pageNo < 1) {
       pageNo = 1;
     }
