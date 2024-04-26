@@ -5,22 +5,31 @@
 <title>ex07</title>
 </head>
 <body>
-<h1>AJAX - jQuery 사용하기</h1>
-<form>
-<input type="text" id="a"> + <input type="text" id="b">
-<button type="button" id="btn1">=</button>
-<input type="text" id="r"><br>
-<button id="btn2" type="reset">초기화</button>
-</form>
+<div id="news"></div>
+<button id="btnAdd">추가</button><br>
+<hr>
+<button class="btn" data-no="101">삭제</button><br>
+<button class="btn" data-no="102">삭제</button><br>
+<button class="btn" data-no="103">삭제</button><br>
+<button class="btn" data-no="104">삭제</button><br>
+<button class="btn" data-no="105">삭제</button><br>
 
-<button class="btn">추가</button>
 
-<script src="myQuery.js"></script>
+
+<script src="myQuery.min.js"></script>
 <script>
   "use strict"
 
-  $('.btn').click(function(event){
+  let news = $('#news');
 
+  $('#btnAdd').click(function(event) {
+    $('<p>').html('okok').appendTo(news);
+    //$('#news').append($('<p>').html('nono'));
+  });
+
+  $('.btn').click(function(event) {
+    var no = $(event.target).attr('data-no');
+    console.log(no);
   });
 
 
