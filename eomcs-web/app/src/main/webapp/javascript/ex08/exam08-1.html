@@ -9,11 +9,11 @@
 <script>
 
 const promise = new Promise((resolve, reject) => {
-  setTimeout(() => {
+  setTimeout(() => {  // 3초뒤에 실행될 함수 등록하고 바로 다음으로 넘어감
     resolve('{"title": "test..ok!", "content": "내용입니다!"}');
   }, 3000);
 })
-.then((text) => {
+.then((text) => { // 성공/실패여부 전달 안된상태 -> 3초뒤에 깨어나면 then으로 -> JSON 형식으로!
   console.log(text)
   // 핸들러에서 리턴한 값은 
   // 다음 핸들러에게 그대로 전달된다.

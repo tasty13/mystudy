@@ -20,6 +20,7 @@ const promise = new Promise((resolve, reject) => {
   xhr.open("GET", "http://localhost:3000/hello", true); 
   xhr.send();
 })
+
 .catch(() => console.log("catched!"));
 
 console.log("끝!");
