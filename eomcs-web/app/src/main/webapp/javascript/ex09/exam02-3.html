@@ -20,7 +20,8 @@ var tbody = document.querySelector("tbody");
 
 fetch("http://localhost:3000/boards")
 .then((response) => {
-    return response.json(); 
+    // 서버가 응답한 JSON 포맷 데이터를 자바스크립트로 변환해주는 Promise 객체를 리턴한다.
+    return response.json();
 })
 .then((arr) => {
     for (var b of arr) {
