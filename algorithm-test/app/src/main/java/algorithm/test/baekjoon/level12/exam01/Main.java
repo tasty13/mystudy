@@ -20,11 +20,20 @@ public class Main {
       list.add(Integer.parseInt(st2.nextToken()));
     }
 
-    for (int i = 0; i < list.size(); i++) {
-      // 인덱스 0 1 2 이런식으로 덧셈
-      // 만약 넘겼다면 그 이전 계산이 정답
-      // 최소값도 정해야하나... 셋이 겹치치만 않게 하면 되는데
+    int closestSum = 0; // 각 조합의 합이 m을 넘지 않으면서 가장 큰 값
+
+    for (int i = 0; i < n - 2; i++) {
+      for (int j = i + 1; j < n - 1; j++) {
+        for (int k = j + 1; k < n; k++) {
+          int sum = list.get(i) + list.get(j) + list.get(k);
+          if (sum <= m && sum > closestSum) {
+            closestSum = sum;
+          }
+        }
+      }
     }
+
+    System.out.println(closestSum);
 
   }
 }
